@@ -22,6 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'id',
         'user_rol_id',
+        'company_branch_id',
         'status',
         'name',
         'middle_name',
@@ -53,6 +54,17 @@ class User extends Authenticatable
         (
             'App\Models\UserRol',
             'user_rol_id',
+            'id'
+        )
+        ->withDefault();
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo
+        (
+            'App\Models\CompanyBranch',
+            'company_branch_id',
             'id'
         )
         ->withDefault();

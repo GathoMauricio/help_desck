@@ -351,19 +351,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/js/adminlte.min.js') }}"></script>
 @livewireScripts
-<script type="text/javascript">
-
-Livewire.on('msg', msg => {
-    alert(msg)
-});
-
-deleteUser = user_id =>{
-  if(confirm("Eliminar usuario"))
-  {
-    Livewire.emit('destroy',user_id);
-  }
-};
-
-</script>
+<script src="{{ asset('js/app.js')}}" type="text/javascript"></script>
 </body>
 </html>

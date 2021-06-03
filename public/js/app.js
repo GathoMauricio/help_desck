@@ -1840,7 +1840,34 @@ module.exports = {
   \*****************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //Cliente => servidor
+//Muestra el modal para crear un nuevo registro
+
+
+window.createUser = function () {
+  return $("#modal_create_usuario").modal();
+}; //Muestra un mensaje de confirmación para eliminar un registro
+
+
+window.deleteUser = function (user_id) {
+  if (confirm("Eliminar usuario")) {
+    //Invoca la funcion destroy del componente cuando el usuario confirma la eliminación
+    Livewire.emit('destroy', user_id);
+  }
+}; //-------------------------------------------------------------------------------------------------------------------------------------------
+//Servidor => cliente
+//Muestar modal de editar usuario despues de haber almacenado el id en el componente
+
+
+Livewire.on('editUser', $("#modal_edit_usuario").modal()); //Oculta el modal de crear usuario una vez que el componente creao el registro
+
+Livewire.on('dismissCreateUserModal', function () {
+  return $("#modal_create_usuario").modal('hide');
+}); //Muestar un mensaje en la ventana del navegador con la respuesta del servidor
+
+Livewire.on('msg', function (msg) {
+  return alert(msg);
+});
 
 /***/ }),
 
