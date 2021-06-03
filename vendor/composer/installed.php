@@ -492,6 +492,15 @@
       ),
       'reference' => '3b9dff8aaf7323590c1d2e443db701eb1f9aa0d3',
     ),
+    'livewire/livewire' => 
+    array (
+      'pretty_version' => 'v2.4.4',
+      'version' => '2.4.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '33101c83b75728651b9e668a4559f97def7c9138',
+    ),
     'mockery/mockery' => 
     array (
       'pretty_version' => '1.4.3',
