@@ -1846,7 +1846,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //Cliente
 
 window.createUser = function () {
   return $("#modal_create_usuario").modal();
-}; //Muestra un mensaje de confirmación para eliminar un registro
+}; //
+//Muestra un mensaje de confirmación para eliminar un registro
 
 
 window.deleteUser = function (user_id) {
@@ -1859,10 +1860,16 @@ window.deleteUser = function (user_id) {
 //Muestar modal de editar usuario despues de haber almacenado el id en el componente
 
 
-Livewire.on('editUser', $("#modal_edit_usuario").modal()); //Oculta el modal de crear usuario una vez que el componente creao el registro
+Livewire.on('editUser', function () {
+  return $("#modal_edit_usuario").modal();
+}); //Oculta el modal de crear usuario una vez que el componente creado el registro
 
 Livewire.on('dismissCreateUserModal', function () {
   return $("#modal_create_usuario").modal('hide');
+}); //Oculta el modal de editar usuario una vez que el componente actualizó el registro
+
+Livewire.on('dismissEditUserModal', function () {
+  return $("#modal_edit_usuario").modal('hide');
 }); //Muestar un mensaje en la ventana del navegador con la respuesta del servidor
 
 Livewire.on('msg', function (msg) {

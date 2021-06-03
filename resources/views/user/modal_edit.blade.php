@@ -1,9 +1,9 @@
 <!-- Modal -->
-<div  wire:ignore.self class="modal" id="modal_create_usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div  wire:ignore.self class="modal" id="modal_edit_usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Crear usuario</h3>
+        <h3 class="modal-title" id="exampleModalLabel">Editar usuario</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -80,7 +80,7 @@
           </div>
           <div class="col-md-4">
               <label class="font-weight-bold">Email</label>
-              <input wire:model ="email" type="email" class="form-control" placeholder="Email..."/>
+              <input wire:model ="email" type="email" class="form-control" placeholder="Email..." readonly/>
               @error('email') <span class="error-message">{{ $message }}</span> @enderror
           </div>
         </div>
@@ -94,11 +94,12 @@
         </div>
 
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-12">
               <label class="font-weight-bold">Imagen</label>
-              <input wire:model ="image" type="file" class="form-control" placeholder="Imagen..." accept="image/png">
+              <input wire:model ="image" type="file" class="form-control" placeholder="Imagen..."/>
               @error('image') <span class="error-message">{{ $message }}</span> @enderror
           </div>
+        <!--
           <div class="col-md-4">
               <label class="font-weight-bold">Contraseña</label>
               <input wire:model ="password" type="password" class="form-control" placeholder="Contraseña..."/>
@@ -109,12 +110,13 @@
               <input wire:model ="password_confirmation" type="password" class="form-control" placeholder="Confirmar contraseña..."/>
               @error('password_confirmation') <span class="error-message">{{ $message }}</span> @enderror
           </div>
+        -->
         </div>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button wire:click = "store" type="button" class="btn btn-primary">Guardar</button>
+        <button wire:click = "update" type="button" class="btn btn-primary">Actualizar</button>
       </div>
     </div>
   </div>

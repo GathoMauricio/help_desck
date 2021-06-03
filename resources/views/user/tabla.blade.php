@@ -1,7 +1,9 @@
-<input type="text" wire:model = "search_text"  class="form-control" placeholder="Buscar..."/>
+<input type="text" wire:model="search_text" class="form-control"  autocomplete="off"  placeholder="Buscar..."/>
+
 <table class="table">
         <thead>
             <tr>
+                <th>Foto</th>
                 <th>Rol</th>
                 <th>Estado</th>
                 <th>Nombre</th>
@@ -15,6 +17,13 @@
         <tbody>
             @foreach($usuarios as $usuario)
             <tr>
+                <td>
+                    @if($usuario->image == 'perfil.png')
+                    <img src="{{ asset('img/'.$usuario->image) }}" class="img-circle elevation-2" alt="User Image" width="60" height="60"/>
+                    @else
+                    <img src="{{ asset('storage/user_images/'.$usuario->image) }}" class="img-circle elevation-2" alt="User Image" width="60" height="60"/>
+                    @endif
+                </td>
                 <td>{{ $usuario->rol['name'] }}</td>
                 <td>{{ $usuario->status }}</td>
                 <td>{{ $usuario->name }}</td>
@@ -28,6 +37,3 @@
             @endforeach
         </body>
 </table> 
-<div wire:ignore.self>
-{{$usuarios->links('pagination-links')}}
-</div>
