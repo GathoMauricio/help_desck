@@ -1841,39 +1841,122 @@ module.exports = {
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //Cliente => servidor
-//Muestra el modal para crear un nuevo registro
 
 
 window.createUser = function () {
   return $("#modal_create_usuario").modal();
-}; //
-//Muestra un mensaje de confirmación para eliminar un registro
+};
 
+window.createCompany = function () {
+  return $("#modal_create_company").modal();
+};
 
-window.deleteUser = function (user_id) {
-  if (confirm("Eliminar usuario")) {
-    //Invoca la funcion destroy del componente cuando el usuario confirma la eliminación
-    Livewire.emit('destroy', user_id);
-  }
+window.createCompanyBranchbyId = function () {
+  return $("#modal_create_company_branch_by_id").modal();
+};
+
+window.createCompanyBranch = function () {
+  return $("#modal_create_company_branch").modal();
+};
+
+window.deleteUser = function (id) {
+  alertify.confirm("", function () {
+    Livewire.emit('destroy', id);
+  }, function () {//alertify.error('Cancel');
+  }).set('labels', {
+    ok: 'Si, eliminar!',
+    cancel: 'Cancelar'
+  }).set({
+    transition: 'flipx',
+    title: 'Alerta',
+    message: '¿Eliminar registro?'
+  });
+};
+
+window.deleteCompany = function (id) {
+  console.log("Eliminar");
+  alertify.confirm("", function () {
+    Livewire.emit('destroy', id);
+  }, function () {//alertify.error('Cancel');
+  }).set('labels', {
+    ok: 'Si, eliminar!',
+    cancel: 'Cancelar'
+  }).set({
+    transition: 'flipx',
+    title: 'Alerta',
+    message: '¿Eliminar registro?'
+  });
+};
+
+window.deleteCompanyBranch = function (id) {
+  console.log("Eliminar");
+  alertify.confirm("", function () {
+    Livewire.emit('destroy', id);
+  }, function () {//alertify.error('Cancel');
+  }).set('labels', {
+    ok: 'Si, eliminar!',
+    cancel: 'Cancelar'
+  }).set({
+    transition: 'flipx',
+    title: 'Alerta',
+    message: '¿Eliminar registro?'
+  });
+};
+
+window.msg = function (text) {
+  alertify.alert(text, function () {
+    alertify.message('OK');
+  });
+};
+
+window.successNotification = function (text) {
+  alertify.success(text);
+};
+
+window.errorNotification = function (text) {
+  alertify.error(text);
 }; //-------------------------------------------------------------------------------------------------------------------------------------------
 //Servidor => cliente
-//Muestar modal de editar usuario despues de haber almacenado el id en el componente
 
 
 Livewire.on('editUser', function () {
   return $("#modal_edit_usuario").modal();
-}); //Oculta el modal de crear usuario una vez que el componente creado el registro
-
+});
+Livewire.on('editCompany', function () {
+  return $("#modal_edit_company").modal();
+});
+Livewire.on('editCompanyBranch', function () {
+  return $("#modal_edit_company_branch").modal();
+});
 Livewire.on('dismissCreateUserModal', function () {
   return $("#modal_create_usuario").modal('hide');
-}); //Oculta el modal de editar usuario una vez que el componente actualizó el registro
-
+});
+Livewire.on('dismissCreateCompanyModal', function () {
+  return $("#modal_create_company").modal('hide');
+});
+Livewire.on('dismissCreateCompanyBranchModal', function () {
+  $("#modal_create_company_branch").modal('hide');
+  $("#modal_create_company_branch_by_id").modal('hide');
+});
 Livewire.on('dismissEditUserModal', function () {
   return $("#modal_edit_usuario").modal('hide');
-}); //Muestar un mensaje en la ventana del navegador con la respuesta del servidor
-
-Livewire.on('msg', function (msg) {
-  return alert(msg);
+});
+Livewire.on('dismissEditCompanyModal', function () {
+  return $("#modal_edit_company").modal('hide');
+});
+Livewire.on('dismissEditCompanyBranchModal', function () {
+  return $("#modal_edit_company_branch").modal('hide');
+});
+Livewire.on('msg', function (text) {
+  alertify.alert(text, function () {
+    alertify.message('OK');
+  });
+});
+Livewire.on('successNotification', function (text) {
+  alertify.success(text);
+});
+Livewire.on('errorNotification', function (text) {
+  alertify.error(text);
 });
 
 /***/ }),

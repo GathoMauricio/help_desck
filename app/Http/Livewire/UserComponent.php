@@ -121,6 +121,7 @@ class UserComponent extends Component
         }
 
         $this->emit('dismissCreateUserModal');
+        $this->emit('successNotification','El usuario '.$user->name.' '.$user->middle_name.' se creó con éxito.');
         $this->default();
     }
 
@@ -185,12 +186,15 @@ class UserComponent extends Component
         $user->save();
         
         $this->emit('dismissEditUserModal');
+        $this->emit('successNotification','El usuario '.$user->name.' '.$user->middle_name.' se actualizó con éxito.');
     }
 
     public function destroy($id)
     {
         $user = User::find($id);
+        $name = $user->name.' '.$user->middle_name;
         $user->delete();
+        $this->emit('successNotification','El usuario '.$name.' se eliminó con éxito.');
     }
 
     public function default()

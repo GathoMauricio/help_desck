@@ -15,8 +15,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.min.css') }}">
-  <!-- Styles
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+  <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/alertify.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/semantic.css') }}" rel="stylesheet">
   @livewireStyles  
 </head>
 <body class="hold-transition sidebar-mini">
@@ -29,17 +31,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
+      <!--
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
       </li>
+      -->
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
+    <!--
       <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
           <i class="fas fa-search"></i>
@@ -60,8 +65,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </form>
         </div>
       </li>
-
-      <!-- Messages Dropdown Menu -->
+      -->
+      <!-- Messages Dropdown Menu
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
@@ -69,7 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <a href="#" class="dropdown-item">
-            <!-- Message Start -->
+            
             <div class="media">
               <img src="{{ asset('adminlte/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
@@ -81,11 +86,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            <!-- Message End -->
+           
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            <!-- Message Start -->
+            
             <div class="media">
               <img src="{{ asset('adminlte/img/user8-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
@@ -97,11 +102,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            <!-- Message End -->
+            
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            <!-- Message Start -->
+            
             <div class="media">
               <img src="{{ asset('adminlte/img/user3-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
@@ -113,14 +118,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            <!-- Message End -->
+            
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li>
+      -->
+      
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
+      <!--
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
@@ -146,6 +154,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
+      -->
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -157,6 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </a>
       </li>
     </ul>
+
   </nav>
   <!-- /.navbar -->
 
@@ -177,6 +187,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="image">
           @if(Auth::user()->image == 'perfil.png')
             <img src="{{ asset('img/'.Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image">
+          @else
+            <img src="{{ asset('storage/user_images/'.Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image">
           @endif
         </div>
         <div class="info">
@@ -185,6 +197,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
 
       <!-- SidebarSearch Form -->
+      <!--
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
@@ -195,7 +208,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         </div>
       </div>
-
+      -->
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -310,13 +323,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="p-3">
 
       @if(Auth::user()->user_rol_id == 1)
-      <a href="#">
+      <a href="{{ route('companies') }}">
         <i class="fa fa-building"></i>  Empresas
       </a><br/><br/>
-      <a href="#">
+      <a href="{{ route('company_branches') }}">
         <i class="fa fa-industry"></i>  Sucursales
       </a><br/><br/>
-      <a href="{{ route('usuarios') }}">
+      <a href="{{ route('users') }}">
         <i class="fa fa-users"></i>  Usuarios
       </a><br/><br/>
       @endif
@@ -353,6 +366,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/js/adminlte.min.js') }}"></script>
 @livewireScripts
+<script src="{{ asset('js/alertify.js')}}" type="text/javascript"></script>
 <script src="{{ asset('js/app.js')}}" type="text/javascript"></script>
+
 </body>
 </html>

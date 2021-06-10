@@ -15,8 +15,16 @@ class Company extends Model
     protected $fillable = [
         'id',
         'name',
-
+        'description',
+        'image',
         'created_at',
         'updated_at'
     ];
+    protected static function boot()
+	{
+		parent::boot();
+        static::creating(function ($query) {
+            $query->image = 'company.png';
+		});
+	}
 }
