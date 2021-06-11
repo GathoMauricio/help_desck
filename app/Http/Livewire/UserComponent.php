@@ -52,7 +52,7 @@ class UserComponent extends Component
         $companies = Company::orderBy('name')->get();
 
         if (!empty($this->company_id)) {
-            $this->branches = CompanyBranch::where('company_id', $this->company_id)->get();
+            $this->branches = CompanyBranch::where('company_id', $this->company_id)->orderBy('name')->get();
         }
 
         if (strlen($this->search_text) > 0) {
