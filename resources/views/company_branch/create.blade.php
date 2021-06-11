@@ -9,7 +9,6 @@
         </button>
       </div>
       <div class="modal-body container">
-        Company
         <div class="row">
           <div class="col-md-6">
               <label class="font-weight-bold">Nombre</label>

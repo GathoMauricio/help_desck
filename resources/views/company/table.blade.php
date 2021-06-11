@@ -13,7 +13,7 @@
                 <th>Foto</th>
                 <th>Nombre</th>
                 <th>Descripción</th>
-                <th colspan="3">&nbsp</th>
+                <th colspan="2">&nbsp</th>
             </tr>
         </thead>
         <tbody>
@@ -28,11 +28,13 @@
                 </td>
                 <td>{{ $company->name }}</td>
                 <td>{{ $company->description }}</td>
+                <!--
                 <td>
                 <button wire:click="show({{ $company->id }})" class="btn btn-primary" title="Ver...">
                 <span class="fa fa-eye"></span>
                 </button>
                 </td>
+                -->
                 <td>
                 <button wire:click="edit({{ $company->id }})" class="btn btn-warning" title="Editar...">
                 <span class="fa fa-edit"></span>
