@@ -54,6 +54,7 @@ return [
     |
     */
 
+    //'asset_url' => 'http://localhost',
     'asset_url' => env('ASSET_URL'),
 
     /*
