@@ -109,7 +109,7 @@ class UserComponent extends Component
             'emergency_phone' => $this->emergency_phone,
             'email' => $this->email,
             'address' => $this->address,
-            'password' => bcrypt($this->password),
+            'password' => $this->password,
         ]);
 
         if(!empty($this->image)){

@@ -42,7 +42,7 @@ class User extends Authenticatable
 	{
 		parent::boot();
         static::creating(function ($query) {
-            $query->password = bcrypt($query->email);
+            $query->password = bcrypt($query->password);
             $query->image = 'perfil.png';
             $query->status = 'Activo';
             $query->api_token = \Str::random(60);
