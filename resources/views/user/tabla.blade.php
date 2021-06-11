@@ -5,6 +5,7 @@
     </button>
     {{$usuarios->links()}}
 </p>
+<br/><br/>
 <input type="text" wire:model="search_text" class="form-control"  autocomplete="off"  placeholder="Buscar..."/>
 <table id="example2" class="table table-bordered table-hover dataTable dtr-inline collapsed" role="grid" aria-describedby="example2_info">
         <thead>

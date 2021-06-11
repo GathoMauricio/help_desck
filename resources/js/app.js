@@ -5,6 +5,7 @@ window.createUser = () => $("#modal_create_usuario").modal();
 window.createCompany = () => $("#modal_create_company").modal();
 window.createCompanyBranchbyId = () => $("#modal_create_company_branch_by_id").modal();
 window.createCompanyBranch = () => $("#modal_create_company_branch").modal();
+window.createCase = () => $("#modal_create_case").modal();
 
 window.deleteUser = id => {
     alertify.confirm("",
@@ -68,10 +69,13 @@ Livewire.on('dismissCreateCompanyBranchModal', () => {
     $("#modal_create_company_branch").modal('hide');
     $("#modal_create_company_branch_by_id").modal('hide');
 });
+Livewire.on('dismissCreateCaseModal', () => $("#modal_create_case").modal('hide'));
 
 Livewire.on('dismissEditUserModal', () => $("#modal_edit_usuario").modal('hide'));
 Livewire.on('dismissEditCompanyModal', () => $("#modal_edit_company").modal('hide'));
 Livewire.on('dismissEditCompanyBranchModal', () => $("#modal_edit_company_branch").modal('hide'));
+
+
 
 Livewire.on('msg', (text) => {
     alertify

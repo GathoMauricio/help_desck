@@ -10,3 +10,5 @@ Route::group(['middleware' => ['auth','admin']],function(){
     Route::get('company_branches_by_id/{id}',function(){ return view('company_branch_by_id.index'); })->name('company_branches_by_id');
     Route::get('company_branches',function(){ return view('company_branch.index'); })->name('company_branches');
 });
+
+Route::get('cases',function(){ return view('case.index'); })->name('cases');
