@@ -40,6 +40,8 @@ class UserComponent extends Component
 
     public $branches = null, $search_text;
 
+    public $self_component = 'user';
+
     public function mount()
     {
         $this->search_text = "";

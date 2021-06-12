@@ -20,6 +20,8 @@ class CompanyBranchComponent extends Component
     public $company_branch_id,$company_id=null,$company_id_aux=null,$name,$email,$phone,$address;
 
     public $search_text;
+
+    public $self_component = 'company_branch';
     
     public function render()
     {

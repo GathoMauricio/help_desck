@@ -30,6 +30,8 @@ class CaseComponent extends Component
 
     public $search_text;
 
+    public $self_component = 'case';
+
     public function render()
     {
         $cases = Caze::where('user_contact_id',\Auth::user()->id)->orderBy('id','DESC')->paginate(5);

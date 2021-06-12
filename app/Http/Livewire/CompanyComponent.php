@@ -21,6 +21,8 @@ class CompanyComponent extends Component
 
     public $search_text;
 
+    public $self_component = 'company';
+
     public function mount()
     {
         $this->search_text = "";

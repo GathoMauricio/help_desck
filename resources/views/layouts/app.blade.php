@@ -340,6 +340,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <a href="{{ route('users') }}">
         <i class="fa fa-users"></i>  Usuarios
       </a><br/><br/>
+      <a href="{{ route('service_areas') }}">
+        <i class="fa fa-cog"></i>  Áreas de servicio
+      </a><br/><br/>
+      <a href="{{ route('service_types') }}">
+        <i class="fa fa-cog"></i>  Tipos de servicio
+      </a><br/><br/>
+      <a href="{{ route('service_categories') }}">
+        <i class="fa fa-cog"></i>  Categorías de servicio
+      </a><br/><br/>
+      <a href="{{ route('service_simptoms') }}">
+        <i class="fa fa-cog"></i>  Síntomas de servicio
+      </a><br/><br/>
       @endif
 
       <a href="#" onclick="event.preventDefault();

@@ -44,7 +44,7 @@
                 </button>
                 </td>
                 <td>
-                <button onclick="deleteCompanyBranch({{ $branch->id }})" class="btn btn-danger" title="Eliminar...">
+                <button onclick="destroy({{ $branch->id }})" class="btn btn-danger" title="Eliminar...">
                 <span class="fa fa-trash"></span>
                 </button>
                 </td>

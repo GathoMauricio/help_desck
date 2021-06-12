@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div  wire:ignore.self class="modal" id="modal_edit_usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div  wire:ignore.self class="modal" id="modal_edit_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">

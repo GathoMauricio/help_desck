@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            @include('user.tabla')
+            @include("$self_component.table")
         </div>
     </div>
-    @include('user.modal_create')
-    @include('user.modal_edit')
+    @include("$self_component.create")
+    @include("$self_component.edit")
 </div>

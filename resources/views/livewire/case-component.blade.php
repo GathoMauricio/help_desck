@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            @include('case.table')
+            @include("$self_component.table")
         </div>
     </div>
-    @include('case.create')
+    @include("$self_component.create")
 </div>

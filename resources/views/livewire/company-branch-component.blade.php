@@ -23,7 +23,7 @@
     @if(isset($company))
         @include('company_branch_by_id.create')
     @else
-        @include('company_branch.create')
+        @include("$self_component.create")
     @endif
-    @include('company_branch.edit')
+        @include("$self_component.edit")
 </div>
