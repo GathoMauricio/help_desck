@@ -54,16 +54,16 @@ Livewire.on('dismissCreateCompanyBranchModal', () => {
 Livewire.on('dismissCreateCaseModal', () => $("#modal_create_case").modal('hide'));
 Livewire.on('dismissCreateAreaModal', () => $("#modal_create_area").modal('hide'));
 Livewire.on('dismissCreateTypeModal', () => $("#modal_create_type").modal('hide'));
-Livewire.on('dismissCreateCategoryModal', () => $("#modal_create_type").modal('hide'));
-Livewire.on('dismissCreateSimptompModal', () => $("#modal_create_type").modal('hide'));
+Livewire.on('dismissCreateCategoryModal', () => $("#modal_create_category").modal('hide'));
+Livewire.on('dismissCreateSimptompModal', () => $("#modal_create_simptomp").modal('hide'));
 
 Livewire.on('dismissEditUserModal', () => $("#modal_edit_usuario").modal('hide'));
 Livewire.on('dismissEditCompanyModal', () => $("#modal_edit_company").modal('hide'));
 Livewire.on('dismissEditCompanyBranchModal', () => $("#modal_edit_company_branch").modal('hide'));
 Livewire.on('dismissEditAreaModal', () => $("#modal_edit_area").modal('hide'));
 Livewire.on('dismissEditTypeModal', () => $("#modal_edit_type").modal('hide'));
-Livewire.on('dismissEditCategoryModal', () => $("#modal_edit_type").modal('hide'));
-Livewire.on('dismissEditSimptompModal', () => $("#modal_edit_type").modal('hide'));
+Livewire.on('dismissEditCategoryModal', () => $("#modal_edit_category").modal('hide'));
+Livewire.on('dismissEditSimptompModal', () => $("#modal_edit_simptomp").modal('hide'));
 
 
 

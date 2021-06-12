@@ -71,7 +71,7 @@ class ServiceAreaComponent extends Component
         $area = ServiceArea::find($id);
         $name = $area->name;
         $area->delete();
-        $this->emit('successNotification','La compañía '.$name.' se eliminó con éxito.');
+        $this->emit('successNotification','El área de servicio '.$name.' se eliminó con éxito.');
     }
 
     public function default()
