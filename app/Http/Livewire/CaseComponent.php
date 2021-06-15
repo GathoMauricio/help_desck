@@ -26,7 +26,9 @@ class CaseComponent extends Component
     public $currentArea = null, $currentServiceType = null, $currentServiceTypeCategory = null;
     public $types = null,$categories = null,$simptoms = null;
 
-    public $symptomp_id = null, $priority_case_id, $description;
+    public $case_id,$symptomp_id = null, $priority_case_id, $description;
+
+    public $currentCase = null,$currentCaseFeedback = null,$currentCaseSupport = null;
 
     public $search_text;
 
@@ -56,6 +58,15 @@ class CaseComponent extends Component
             'areas' => $areas,
             'priorities' => $priorities,
         ]);
+    }
+
+    public function show($id)
+    {
+        $this->case_id = $id;
+        $this->currentCase = Caze::find($id);
+        $this->currentCaseSupport = $this->currentCase->user_support_id;
+        $this->currentCaseFeedback = $this->currentCase->feedback;
+        $this->emit('showCaseModal');
     }
 
     public function store ()
@@ -89,6 +100,19 @@ class CaseComponent extends Component
         $this->emit('dismissCreateCaseModal');
         $this->emit('successNotification','La solicitud '.$case->num_case.' se creó con éxito.');
         $this->default();
+    }
+
+    public function update()
+    {
+        $auxCase = Caze::find($this->case_id);
+        if(empty($this->currentCaseSupport))
+            $auxCase->user_support_id = null;
+        else 
+            $auxCase->user_support_id = $this->currentCaseSupport;
+
+        $auxCase->feedback = $this->currentCaseFeedback;
+        $auxCase->save();
+        $this->emit('successNotification','Información '.$auxCase->user_support_id.' actualizada...');
     }
 
     public function changeArea()

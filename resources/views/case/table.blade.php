@@ -28,7 +28,17 @@
         <tbody>
             @foreach($cases as $case)
             <tr>
-                <td>{{ $case->num_case }}</td>
+                <td>
+                    <b>{{ $case->num_case }}</b>
+                    <br/>
+                    <small>
+                    @if($case->support['name'])
+                    Asignado a <span class="text-info">{{ $case->support['name'] }} {{ $case->support['middle_name'] }}</span>
+                    @else
+                    <span class="text-warning">No asignado aún</span>
+                    @endif
+                    </small>
+                </td>
                 <td class="text-center">
                     
                     @if($case->contact->branch->company['image'] == 'company.png')
@@ -79,8 +89,8 @@
                     <p class="bg-success text-center">{{ $case->status['name'] }}</p>
                 @endif
                 </td>
-                <td><span class="fa fa-eye"></span></td>
-                <td><span class="fa fa-comments"></span></td>
+                <td><span wire:click = "show({{ $case->id }})" class="fa fa-eye text-info" style="cursor: pointer;"></span></td>
+                <td><span class="fa fa-comments text-primary" style="cursor: pointer;"></span></td>
             </tr>
             @endforeach
         </body>

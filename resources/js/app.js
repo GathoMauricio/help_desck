@@ -45,6 +45,8 @@ Livewire.on('editType', () => $("#modal_edit_type").modal());
 Livewire.on('editCategory', () => $("#modal_edit_category").modal());
 Livewire.on('editSymptomp', () => $("#modal_edit_symptom").modal());
 
+Livewire.on('showCaseModal', () => $("#modal_show_case").modal());
+
 Livewire.on('dismissCreateUserModal', () => $("#modal_create_usuario").modal('hide'));
 Livewire.on('dismissCreateCompanyModal', () => $("#modal_create_company").modal('hide'));
 Livewire.on('dismissCreateCompanyBranchModal', () => {
@@ -64,8 +66,6 @@ Livewire.on('dismissEditAreaModal', () => $("#modal_edit_area").modal('hide'));
 Livewire.on('dismissEditTypeModal', () => $("#modal_edit_type").modal('hide'));
 Livewire.on('dismissEditCategoryModal', () => $("#modal_edit_category").modal('hide'));
 Livewire.on('dismissEditSymptomModal', () => $("#modal_edit_symptom").modal('hide'));
-
-
 
 Livewire.on('msg', (text) => {
     alertify

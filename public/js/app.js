@@ -1930,6 +1930,9 @@ Livewire.on('editCategory', function () {
 Livewire.on('editSymptomp', function () {
   return $("#modal_edit_symptom").modal();
 });
+Livewire.on('showCaseModal', function () {
+  return $("#modal_show_case").modal();
+});
 Livewire.on('dismissCreateUserModal', function () {
   return $("#modal_create_usuario").modal('hide');
 });
