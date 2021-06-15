@@ -1875,8 +1875,8 @@ window.createCategory = function () {
   return $("#modal_create_category").modal();
 };
 
-window.createSimptom = function () {
-  return $("#modal_create_simptom").modal();
+window.createSymptom = function () {
+  return $("#modal_create_symptom").modal();
 };
 
 window.destroy = function (id) {
@@ -1927,8 +1927,8 @@ Livewire.on('editType', function () {
 Livewire.on('editCategory', function () {
   return $("#modal_edit_category").modal();
 });
-Livewire.on('editSimptomp', function () {
-  return $("#modal_edit_simptomp").modal();
+Livewire.on('editSymptomp', function () {
+  return $("#modal_edit_symptom").modal();
 });
 Livewire.on('dismissCreateUserModal', function () {
   return $("#modal_create_usuario").modal('hide');
@@ -1952,8 +1952,8 @@ Livewire.on('dismissCreateTypeModal', function () {
 Livewire.on('dismissCreateCategoryModal', function () {
   return $("#modal_create_category").modal('hide');
 });
-Livewire.on('dismissCreateSimptompModal', function () {
-  return $("#modal_create_simptomp").modal('hide');
+Livewire.on('dismissCreateSymtomModal', function () {
+  return $("#modal_create_symptom").modal('hide');
 });
 Livewire.on('dismissEditUserModal', function () {
   return $("#modal_edit_usuario").modal('hide');
@@ -1973,8 +1973,8 @@ Livewire.on('dismissEditTypeModal', function () {
 Livewire.on('dismissEditCategoryModal', function () {
   return $("#modal_edit_category").modal('hide');
 });
-Livewire.on('dismissEditSimptompModal', function () {
-  return $("#modal_edit_simptomp").modal('hide');
+Livewire.on('dismissEditSymptomModal', function () {
+  return $("#modal_edit_symptom").modal('hide');
 });
 Livewire.on('msg', function (text) {
   alertify.alert(text, function () {
