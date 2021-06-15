@@ -37,14 +37,23 @@
             </div>
             <div class="col-md-6">
                 <label class="font-weight-bold">Estatus: </label>
-                @if($currentCase->status_id == 1)
-                    <span class="text-info">{{ $currentCase->status['name'] }}</span>
-                @endif
-                @if($currentCase->status_id == 2)
-                    <span class="text-primary">{{ $currentCase->status['name'] }}</span>
-                @endif
-                @if($currentCase->status_id == 3)
-                    <span class="text-success">{{ $currentCase->status['name'] }}</span>
+                @if(Auth::user()->user_rol_id == 1 || Auth::user()->user_rol_id == 2)
+                <select wire:model = "currentCaseStatus" class="form-control">
+                {{!! $statuses = \App\Models\CaseStatus::all() !!}}
+                @foreach($statuses as $status)
+                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                @endforeach
+                </select>
+                @else
+                    @if($currentCase->status_id == 1)
+                        <span class="text-info">{{ $currentCase->status['name'] }}</span>
+                    @endif
+                    @if($currentCase->status_id == 2)
+                        <span class="text-primary">{{ $currentCase->status['name'] }}</span>
+                    @endif
+                    @if($currentCase->status_id == 3)
+                        <span class="text-success">{{ $currentCase->status['name'] }}</span>
+                    @endif
                 @endif
             </div>
         </div>

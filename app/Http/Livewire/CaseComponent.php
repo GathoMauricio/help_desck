@@ -28,7 +28,7 @@ class CaseComponent extends Component
 
     public $case_id,$symptomp_id = null, $priority_case_id, $description;
 
-    public $currentCase = null,$currentCaseFeedback = null,$currentCaseSupport = null;
+    public $currentCase = null,$currentCaseFeedback = null,$currentCaseSupport = null, $currentCaseStatus = null;
 
     public $search_text;
 
@@ -64,6 +64,7 @@ class CaseComponent extends Component
     {
         $this->case_id = $id;
         $this->currentCase = Caze::find($id);
+        $this->currentCaseStatus = $this->currentCase->status_id;
         $this->currentCaseSupport = $this->currentCase->user_support_id;
         $this->currentCaseFeedback = $this->currentCase->feedback;
         $this->emit('showCaseModal');
@@ -110,6 +111,7 @@ class CaseComponent extends Component
         else 
             $auxCase->user_support_id = $this->currentCaseSupport;
 
+        $auxCase->status_id = $this->currentCaseStatus;
         $auxCase->feedback = $this->currentCaseFeedback;
         $auxCase->save();
         $this->emit('successNotification','Información '.$auxCase->user_support_id.' actualizada...');
