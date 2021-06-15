@@ -46,14 +46,25 @@ class CaseComponent extends Component
             $cases = Caze::orderBy('id','DESC')->paginate(5);
         }
         
-        //if(\Auth::user()->user_rol_id == 1)
-        //$cases = Caze::orderBy('id','DESC')->paginate(5);
+        if(!is_null($this->status_case))
+        {
+            if(\Auth::user()->user_rol_id == 2)
+            $cases = Caze::where('status_id',$this->status_case)->where('user_support_id',\Auth::user()->id)->orderBy('id','DESC')->paginate(5);
+        }else{
+            if(\Auth::user()->user_rol_id == 2)
+            $cases = Caze::where('user_support_id',\Auth::user()->id)->orderBy('id','DESC')->paginate(5);
+        }
 
-        if(\Auth::user()->user_rol_id == 2)
-        $cases = Caze::where('user_support_id',\Auth::user()->id)->orderBy('id','DESC')->paginate(5);
+        if(!is_null($this->status_case))
+        {
+            if(\Auth::user()->user_rol_id == 3)
+            $cases = Caze::where('status_id',$this->status_case)->where('user_contact_id',\Auth::user()->id)->orderBy('id','DESC')->paginate(5);
+        }else{
+            if(\Auth::user()->user_rol_id == 3)
+            $cases = Caze::where('user_contact_id',\Auth::user()->id)->orderBy('id','DESC')->paginate(5);
+        }
 
-        if(\Auth::user()->user_rol_id == 3)
-        $cases = Caze::where('user_contact_id',\Auth::user()->id)->orderBy('id','DESC')->paginate(5);
+        
 
 
         $areas = ServiceArea::orderBy('name')->get();
