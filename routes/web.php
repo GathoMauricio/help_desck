@@ -16,3 +16,6 @@ Route::group(['middleware' => ['auth','admin']],function(){
 });
 
 Route::get('cases',function(){ return view('case.index'); })->name('cases');
+Route::get('cases_p',function(){ return view('case.index_p'); })->name('cases_p');
+Route::get('cases_e',function(){ return view('case.index_e'); })->name('cases_e');
+Route::get('cases_c',function(){ return view('case.index_c'); })->name('cases_c');

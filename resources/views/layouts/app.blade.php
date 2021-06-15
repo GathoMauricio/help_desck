@@ -220,12 +220,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Tablero</p>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ route('cases') }}" class="nav-link">
-                  <i class="nav-icon fas fa-archive"></i>
-                  <p>Casos</p>
+            <li class="nav-item menu-close">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-archive"></i>
+              <p>
+                Casos
+                <i class="right fas fa-angle-right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('cases') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Todos</p>
                 </a>
-            </li>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('cases_p') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pendientes</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('cases_e') }}"class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>En progreso</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('cases_c') }}"class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cerrados</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
             <!--
             <li class="nav-item">
                 <a href="#" class="nav-link">
