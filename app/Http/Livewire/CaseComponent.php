@@ -147,6 +147,14 @@ class CaseComponent extends Component
         $this->emit('successNotification','Información '.$auxCase->user_support_id.' actualizada...');
     }
 
+    public function destroy($id)
+    {
+        $auxCase = Caze::find($id);
+        $name = $auxCase->description;
+        $auxCase->delete();
+        $this->emit('successNotification', 'El caso: ' . $name . ' se eliminó con éxito.');
+    }
+
     public function changeArea()
     {
         if(strlen($this->currentArea) <= 0){ 
