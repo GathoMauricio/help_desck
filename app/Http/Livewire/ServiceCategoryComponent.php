@@ -18,7 +18,7 @@ class ServiceCategoryComponent extends Component
     use WithPagination;
     use WithFileUploads;
 
-    public $category_id,$service_type_id,$name;
+    public $category_id, $service_type_id, $name;
 
     public $currentArea = null, $types = null;
 
@@ -28,18 +28,19 @@ class ServiceCategoryComponent extends Component
 
     public function render()
     {
-        if (strlen($this->search_text) > 0) 
-        $categories = ServiceTypeCategory::where('name', 'like', '%' . $this->search_text . '%')->orderBy('name')->paginate(5);
+        if (strlen($this->search_text) > 0)
+            $categories = ServiceTypeCategory::where('name', 'like', '%' . $this->search_text . '%')->orderBy('name')->paginate(5);
         else
-        $categories = ServiceTypeCategory::orderBy('name')->paginate(5);
+            $categories = ServiceTypeCategory::orderBy('name')->paginate(5);
 
-        if(!is_null($this->currentArea))
-        $this->types = ServiceType::where('service_area_id',$this->currentArea)->orderBy('name')->get();
-        
+        if (!is_null($this->currentArea))
+            $this->types = ServiceType::where('service_area_id', $this->currentArea)->orderBy('name')->get();
+
         $areas = ServiceArea::orderBy('name')->get();
 
-        return view('livewire.service-category-component',
-        ['categories' => $categories, 'areas' => $areas]
+        return view(
+            'livewire.service-category-component',
+            ['categories' => $categories, 'areas' => $areas]
         );
     }
 
@@ -47,21 +48,21 @@ class ServiceCategoryComponent extends Component
     {
         $this->validate(
             [
-                'currentArea' => 'required', 
-                'name' => 'required', 
+                'currentArea' => 'required',
+                'name' => 'required',
                 'service_type_id' => 'required'
             ],
             [
-                'currentArea.required' => 'Campo requerido', 
-                'service_type_id.required' => 'Campo requerido', 
-                'name.required' => 'Campo requerido', 
-                ]
+                'currentArea.required' => 'Campo requerido',
+                'service_type_id.required' => 'Campo requerido',
+                'name.required' => 'Campo requerido',
+            ]
         );
 
 
         $category = ServiceTypeCategory::create(['name' => $this->name, 'service_type_id' => $this->service_type_id]);
         $this->emit('dismissCreateCategoryModal');
-        $this->emit('successNotification','La categoría de servicio '.$category->name.' se creó con éxito.');
+        $this->emit('successNotification', 'La categoría de servicio ' . $category->name . ' se creó con éxito.');
         $this->default();
     }
 
@@ -70,11 +71,9 @@ class ServiceCategoryComponent extends Component
         $this->category_id = $id;
         $category = ServiceTypeCategory::find($id);
 
-        //$this->service_area_id = $type->service_area_id;
+        $this->currentArea =  $category->type->area['id'];
+        $this->service_type_id =  $category->type['id'];
 
-        //$this->types = ServiceType::where('service_area_id',$category->service_type_id)->orderBy('name')->get();
-
-        //$this->currentArea = Service
         $this->name = $category->name;
         $this->emit('editCategory');
     }
@@ -83,15 +82,15 @@ class ServiceCategoryComponent extends Component
     {
         $this->validate(
             [
-                'currentArea' => 'required', 
-                'name' => 'required', 
+                'currentArea' => 'required',
+                'name' => 'required',
                 'service_type_id' => 'required'
             ],
             [
-                'currentArea.required' => 'Campo requerido', 
-                'service_type_id.required' => 'Campo requerido', 
-                'name.required' => 'Campo requerido', 
-                ]
+                'currentArea.required' => 'Campo requerido',
+                'service_type_id.required' => 'Campo requerido',
+                'name.required' => 'Campo requerido',
+            ]
         );
 
         $category = ServiceTypeCategory::find($this->category_id);
@@ -101,7 +100,7 @@ class ServiceCategoryComponent extends Component
 
         $category->save();
         $this->emit('dismissEditCategoryModal');
-        $this->emit('successNotification','La categoría de servicio '.$category->name.' se actualizó con éxito.');
+        $this->emit('successNotification', 'La categoría de servicio ' . $category->name . ' se actualizó con éxito.');
         $this->default();
     }
 
@@ -110,7 +109,7 @@ class ServiceCategoryComponent extends Component
         $category = ServiceTypeCategory::find($id);
         $name = $category->name;
         $category->delete();
-        $this->emit('successNotification','La categoría de servicio '.$name.' se eliminó con éxito.');
+        $this->emit('successNotification', 'La categoría de servicio ' . $name . ' se eliminó con éxito.');
     }
 
     public function default()
@@ -122,7 +121,7 @@ class ServiceCategoryComponent extends Component
 
     public function changeArea()
     {
-        if(strlen($this->currentArea) <= 0){ 
+        if (strlen($this->currentArea) <= 0) {
             $this->types = null;
         }
     }

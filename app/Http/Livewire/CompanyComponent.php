@@ -32,22 +32,22 @@ class CompanyComponent extends Component
     {
         if (strlen($this->search_text) > 0) {
             $companies = Company::where('name', 'like', '%' . $this->search_text . '%')->orderBy('name')->paginate(5);
-        }else{
+        } else {
             $companies = Company::orderBy('name')->paginate(5);
         }
-        return view('livewire.company-component',['companies' => $companies]);
+        return view('livewire.company-component', ['companies' => $companies]);
     }
 
     public function show($id)
     {
-        return redirect()->route("company_branches_by_id",$id);
+        return redirect()->route("company_branches_by_id", $id);
     }
 
     public function store()
     {
         $this->validate([
             'name' => 'required'
-        ],[
+        ], [
             'name.required' => 'Este campo es requerido'
         ]);
 
@@ -56,16 +56,16 @@ class CompanyComponent extends Component
             'description' => $this->description,
         ]);
 
-        if(!empty($this->image)){
-            $imageName = 'CompanyImage['.$company->id.']'.\Str::random(60).'.png';
-            $this->image->storeAs('company_images',$imageName);
+        if (!empty($this->image)) {
+            $imageName = 'CompanyImage[' . $company->id . ']' . \Str::random(60) . '.png';
+            $this->image->storeAs('company_images', $imageName);
             $company->image = $imageName;
             $company->save();
             $this->image = null;
         }
 
         $this->emit('dismissCreateCompanyModal');
-        $this->emit('successNotification','La compañía '.$company->name.' se creó con éxito.');
+        $this->emit('successNotification', 'La compañía ' . $company->name . ' se creó con éxito.');
         $this->default();
     }
 
@@ -84,34 +84,34 @@ class CompanyComponent extends Component
     {
         $this->validate([
             'name' => 'required'
-        ],[
+        ], [
             'name.required' => 'Este campo es requerido'
         ]);
-        
+
         $company = Company::find($this->company_id);
         $company->name = $this->name;
         $company->description = $this->description;
 
-        if(!empty($this->image)){
-            $imageName = 'CompanyImage['.$company->id.']'.\Str::random(60).'.png';
-            $this->image->storeAs('company_images',$imageName);
+        if (!empty($this->image)) {
+            $imageName = 'CompanyImage[' . $company->id . ']' . \Str::random(60) . '.png';
+            $this->image->storeAs('company_images', $imageName);
             $company->image = $imageName;
             $company->save();
             $this->image = null;
         }
 
         $this->emit('dismissEditCompanyModal');
-        $this->emit('successNotification','La compañía '.$company->name.' se actualizó con éxito.');
+        $this->emit('successNotification', 'La compañía ' . $company->name . ' se actualizó con éxito.');
         $this->default();
     }
 
     public function destroy($id)
     {
         $company = Company::find($id);
-        CompanyBranch::where('company_id',$id)->delete();
+        CompanyBranch::where('company_id', $id)->delete();
         $name = $company->name;
         $company->delete();
-        $this->emit('successNotification','La compañía '.$name.' se eliminó con éxito.');
+        $this->emit('successNotification', 'La compañía ' . $name . ' se eliminó con éxito.');
     }
 
     public function default()
