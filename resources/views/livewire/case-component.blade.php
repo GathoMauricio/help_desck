@@ -6,4 +6,5 @@
     </div>
     @include("$self_component.create")
     @include("$self_component.show")
+    @include("$self_component.follow")
 </div>

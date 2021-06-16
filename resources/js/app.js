@@ -1,4 +1,46 @@
 require('./bootstrap');
+
+$(() => {
+    $("#form_store_case_follow").on('submit', e => {
+        e.preventDefault();
+        let body = $("#txt_body_case_follow").val();
+        if (body.length > 0) {
+            $.ajax({
+                type: "GET",
+                url: $("#txt_store_case_follow").val(),
+                data: $("#form_store_case_follow").serialize(),
+                success: data => {
+                    $("#form_store_case_follow")[0].reset();
+                    $("#CaseFollowBox").html('');
+                    let counter = 0;
+                    $.each(data, function(index, value) {
+                        counter++;
+                        $("#CaseFollowBox").append(
+                            '<div class="comment-item">' +
+                            '<label class="color-primary-sys font-weight-bold">' +
+                            value.author +
+                            "</label>" +
+                            "<br/>" +
+                            value.body +
+                            "<br/>" +
+                            '<span class="font-weight-bold float-right">' +
+                            value.created_at +
+                            "</span>" +
+                            "<br/>" +
+                            "</div><br/>"
+                        );
+                    });
+                    setTimeout(() => {
+                        $("#CaseFollowBox").animate({ scrollTop: $(document).height() * 10000 },
+                            500
+                        );
+                    }, 500);
+                },
+                error: err => console.error(err)
+            });
+        }
+    });
+});
 //Cliente => servidor
 
 window.createUser = () => $("#modal_create_user").modal();
@@ -20,6 +62,52 @@ window.destroy = id => {
             })
         .set('labels', { ok: 'Si, eliminar!', cancel: 'Cancelar' })
         .set({ transition: 'flipx', title: 'Alerta', message: '¿Eliminar registro?' });
+};
+
+window.caseFollow = id => {
+
+    $("#txt_case_id_follow").val(id);
+    $.ajax({
+        type: 'GET',
+        url: $("#txt_index_case_follow").val() + '/' + id,
+        data: {},
+        success: data => {
+            $("#CaseFollowBox").html('');
+            let counter = 0;
+            $.each(data, function(index, value) {
+                counter++;
+                $("#CaseFollowBox").append(
+                    '<div class="comment-item">' +
+                    '<label class="color-primary-sys font-weight-bold">' +
+                    value.author +
+                    "</label>" +
+                    "<br/>" +
+                    value.body +
+                    "<br/>" +
+                    '<span class="font-weight-bold float-right">' +
+                    value.created_at +
+                    "</span>" +
+                    "<br/>" +
+                    "</div><br/>"
+                );
+            });
+            setTimeout(() => {
+                $("#CaseFollowBox").animate({ scrollTop: $(document).height() * 10000 },
+                    500
+                );
+            }, 500);
+            if (counter <= 0) {
+                $("#CaseFollowBox").html(
+                    '<center><span style="background-color:#F7DC6F;padding:5px;border-radius:3px;" class="text-center font-weight-bold">' +
+                    "Aún no se han agregado seguimientos" +
+                    "</span></center>"
+                );
+            }
+
+        },
+        error: err => console.log(err)
+    });
+    $("#case_follow_modal").modal();
 };
 
 window.msg = text => {
