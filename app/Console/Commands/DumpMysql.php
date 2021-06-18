@@ -47,8 +47,6 @@ class DumpMysql extends Command
         $disk = \Storage::disk('gcs');
         $disk->put("DB_help_desk_alis_foods.sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
 
-        \App\BinnacleImage::where('image',null)->delete();
-
         \Log::info("Base de datos almacenada...");
         
 
