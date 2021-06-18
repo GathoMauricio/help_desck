@@ -23,9 +23,3 @@ Route::get('cases_c',function(){ return view('case.index_c'); })->name('cases_c'
 Route::get('index_case_follow/{id?}',[\App\Http\Controllers\CaseFollowController::class,'index'])->name('index_case_follow');
 Route::get('store_case_follow',[\App\Http\Controllers\CaseFollowController::class,'store'])->name('store_case_follow');
 
-Route::get('dump',function(){
-    \Spatie\DbDumper\Databases\MySql::create()
-        ->setDbName(env('DB_DATABASE'))->setUserName(env('DB_USERNAME'))
-        ->setPassword(env('DB_PASSWORD'))
-        ->dumpToFile(env('APP_ROUTE','').'storage/dump_db/dump_'.date('Y-m-d').'.sql');
-})->name('dump');
