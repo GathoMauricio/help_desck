@@ -125,7 +125,7 @@ class ServiceSimptomComponent extends Component
     public function default()
     {
         $this->name = "";
-        $this->service_type_category_id = "";
+        //$this->service_type_category_id = "";
     }
 
     public function changeArea()
