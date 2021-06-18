@@ -13,7 +13,8 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "livewire/livewire": "^2.4",
-        "spatie/db-dumper": "^2.21"
+        "spatie/db-dumper": "^2.21",
+        "superbalist/flysystem-google-storage": "^7.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

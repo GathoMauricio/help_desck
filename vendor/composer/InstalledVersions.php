@@ -166,6 +166,15 @@ private static $installed = array (
       ),
       'reference' => 'c13c0be93cff50f88bbd70827d993026821914dd',
     ),
+    'firebase/php-jwt' => 
+    array (
+      'pretty_version' => 'v5.3.0',
+      'version' => '5.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3c2d70f2e64e2922345e89f2ceae47d2463faae1',
+    ),
     'fruitcake/laravel-cors' => 
     array (
       'pretty_version' => 'v2.0.4',
@@ -174,6 +183,42 @@ private static $installed = array (
       array (
       ),
       'reference' => 'a8ccedc7ca95189ead0e407c43b530dc17791d6a',
+    ),
+    'google/auth' => 
+    array (
+      'pretty_version' => 'v1.15.1',
+      'version' => '1.15.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '4e0c9367719df9703e96f5ad613041b87742471c',
+    ),
+    'google/cloud-core' => 
+    array (
+      'pretty_version' => 'v1.42.1',
+      'version' => '1.42.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '26a471ec72ee98ae146316054b25a88de8693b11',
+    ),
+    'google/cloud-storage' => 
+    array (
+      'pretty_version' => 'v1.23.2',
+      'version' => '1.23.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '4a9f1262c2929af8c33a58466616820dba91dddc',
+    ),
+    'google/crc32' => 
+    array (
+      'pretty_version' => 'v0.1.0',
+      'version' => '0.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a8525f0dea6fca1893e1bae2f6e804c5f7d007fb',
     ),
     'graham-campbell/result-type' => 
     array (
@@ -716,6 +761,15 @@ private static $installed = array (
       ),
       'reference' => 'c73c6737305e779771147af66c96ca6a7ed8a741',
     ),
+    'psr/cache' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
+    ),
     'psr/container' => 
     array (
       'pretty_version' => '1.1.1',
@@ -848,6 +902,15 @@ private static $installed = array (
       array (
         0 => '4.1.1',
       ),
+    ),
+    'rize/uri-template' => 
+    array (
+      'pretty_version' => '0.3.3',
+      'version' => '0.3.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '6e0b97e00e0f36c652dd3c37b194ef07de669b82',
     ),
     'sebastian/cli-parser' => 
     array (
@@ -1001,6 +1064,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '05e5955fb882008a8947c5a45146d86cfafa10d1',
+    ),
+    'superbalist/flysystem-google-storage' => 
+    array (
+      'pretty_version' => '7.2.2',
+      'version' => '7.2.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '87e2f450c0e4b5200fef9ffe6863068cc873d734',
     ),
     'swiftmailer/swiftmailer' => 
     array (
