@@ -426,6 +426,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 @livewireScripts
 <script src="{{ asset('js/alertify.js')}}" type="text/javascript"></script>
 <script src="{{ asset('js/app.js')}}" type="text/javascript"></script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script>
 
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = {{ env('APP_DEBUG') }};
+
+    var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+      cluster: '{{ env('PUSHER_APP_CLUSTER') }}'
+    });
+    var channel = pusher.subscribe('user-{{ Auth::user()->id }}-channel');
+
+    channel.bind('evento', function(data) {
+      alert(JSON.stringify(data));
+    });
+
+    
+</script>
 </body>
 </html>

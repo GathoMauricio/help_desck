@@ -35,6 +35,7 @@ class ComposerStaticInit0ac4dd2c7aada6df5ba2bf95c6ce6b6b
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
         '40275907c8566c390185147049ef6e5d' => __DIR__ . '/..' . '/livewire/livewire/src/helpers.php',
         '08cdc424157d2aa3359ff0804fd9490f' => __DIR__ . '/../..' . '/app/custom_helpers.php',
@@ -98,6 +99,7 @@ class ComposerStaticInit0ac4dd2c7aada6df5ba2bf95c6ce6b6b
         ),
         'P' => 
         array (
+            'Pusher\\' => 7,
             'Psy\\' => 4,
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
@@ -339,6 +341,10 @@ class ComposerStaticInit0ac4dd2c7aada6df5ba2bf95c6ce6b6b
         'Ramsey\\Collection\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
+        ),
+        'Pusher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pusher/pusher-php-server/src',
         ),
         'Psy\\' => 
         array (
@@ -582,6 +588,7 @@ class ComposerStaticInit0ac4dd2c7aada6df5ba2bf95c6ce6b6b
         'App\\Http\\Livewire\\ServiceCategoryComponent' => __DIR__ . '/../..' . '/app/Http/Livewire/ServiceCategoryComponent.php',
         'App\\Http\\Livewire\\ServiceSimptomComponent' => __DIR__ . '/../..' . '/app/Http/Livewire/ServiceSimptomComponent.php',
         'App\\Http\\Livewire\\ServiceTypeComponent' => __DIR__ . '/../..' . '/app/Http/Livewire/ServiceTypeComponent.php',
+        'App\\Http\\Livewire\\UnassignedComponent' => __DIR__ . '/../..' . '/app/Http/Livewire/UnassignedComponent.php',
         'App\\Http\\Livewire\\UserComponent' => __DIR__ . '/../..' . '/app/Http/Livewire/UserComponent.php',
         'App\\Http\\Middleware\\AdminMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminMiddleware.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -4416,6 +4423,13 @@ class ComposerStaticInit0ac4dd2c7aada6df5ba2bf95c6ce6b6b
         'Psy\\VersionUpdater\\GitHubChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/GitHubChecker.php',
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/NoopChecker.php',
+        'Pusher\\ApiErrorException' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/ApiErrorException.php',
+        'Pusher\\Pusher' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Pusher.php',
+        'Pusher\\PusherCrypto' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherCrypto.php',
+        'Pusher\\PusherException' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherException.php',
+        'Pusher\\PusherInstance' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherInstance.php',
+        'Pusher\\PusherInterface' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherInterface.php',
+        'Pusher\\Webhook' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Webhook.php',
         'Ramsey\\Collection\\AbstractArray' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractArray.php',
         'Ramsey\\Collection\\AbstractCollection' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractCollection.php',
         'Ramsey\\Collection\\AbstractSet' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractSet.php',

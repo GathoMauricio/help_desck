@@ -25,3 +25,7 @@ Route::get('cases_unassigned',function(){ return view('case.unassigned'); })->na
 Route::get('index_case_follow/{id?}',[\App\Http\Controllers\CaseFollowController::class,'index'])->name('index_case_follow');
 Route::get('store_case_follow',[\App\Http\Controllers\CaseFollowController::class,'store'])->name('store_case_follow');
 
+Route::get('push',function(){
+    sendPusher(1,'evento', "Evento de prueba");
+    return "QWERTY";
+})->name('push');

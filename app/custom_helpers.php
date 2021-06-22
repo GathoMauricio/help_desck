@@ -16,3 +16,14 @@ if (!function_exists('formatDate')) {
         date_format(new \DateTime($date),'g:i A');
     }
 }
+
+if (!function_exists('sendPusher')) {
+    function sendPusher($id,$event,$message)
+    {
+        event(new \App\Events\NotificationEvent([
+            'id' => $id,
+            'event' => $event,
+            'message' => $message,
+        ]));
+    }
+}
