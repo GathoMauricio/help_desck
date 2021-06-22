@@ -141,6 +141,23 @@ class CaseComponent extends Component
         else 
             $auxCase->user_support_id = $this->currentCaseSupport;
 
+        if($auxCase->status_id != $this->currentCaseStatus)
+        {
+            //Enviar notificación de cambio de estatus
+            switch ($this->currentCaseStatus) {
+                case 1:
+                    $statusMsg = "Pendiente";
+                break;
+                case 2:
+                    $statusMsg = "En proceso";
+                break;
+                case 3:
+                    $statusMsg = "Finalizado";
+                break;
+            }
+            $this->emit('successNotification','El estatus del caso ha cambiado a: '.$statusMsg);
+        }
+
         $auxCase->status_id = $this->currentCaseStatus;
         $auxCase->feedback = $this->currentCaseFeedback;
         $auxCase->save();

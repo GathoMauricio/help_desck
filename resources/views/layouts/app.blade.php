@@ -235,6 +235,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Todos</p>
                 </a>
               </li>
+              @if(Auth::user()->user_rol_id == 1 || Auth::user()->user_rol_id == 2)
+              <li class="nav-item">
+                <a href="{{ route('cases_unassigned') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sin asignar</p>
+                </a>
+              </li>
+              @endif
               <li class="nav-item">
                 <a href="{{ route('cases_p') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>

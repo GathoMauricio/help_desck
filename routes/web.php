@@ -20,6 +20,8 @@ Route::get('cases_p',function(){ return view('case.index_p'); })->name('cases_p'
 Route::get('cases_e',function(){ return view('case.index_e'); })->name('cases_e');
 Route::get('cases_c',function(){ return view('case.index_c'); })->name('cases_c');
 
+Route::get('cases_unassigned',function(){ return view('case.unassigned'); })->name('cases_unassigned');
+
 Route::get('index_case_follow/{id?}',[\App\Http\Controllers\CaseFollowController::class,'index'])->name('index_case_follow');
 Route::get('store_case_follow',[\App\Http\Controllers\CaseFollowController::class,'store'])->name('store_case_follow');
 

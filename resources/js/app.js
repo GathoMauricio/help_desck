@@ -110,6 +110,18 @@ window.caseFollow = id => {
     $("#case_follow_modal").modal();
 };
 
+window.takeCase = case_id => {
+    alertify.confirm("",
+            function() {
+                Livewire.emit('takeCase', case_id);
+            },
+            function() {
+                //alertify.error('Cancel');
+            })
+        .set('labels', { ok: 'Si, quiero tomar el caso!', cancel: 'Cancelar' })
+        .set({ transition: 'flipx', title: 'Alerta', message: '¿Tomar este caso?' });
+};
+
 window.msg = text => {
     alertify
         .alert(text, function() {
