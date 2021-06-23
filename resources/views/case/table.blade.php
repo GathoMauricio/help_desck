@@ -41,7 +41,7 @@
                 </td>
                 <td class="text-center">
                     
-                    @if($case->contact->branch->company['image'] == 'company.png')
+                    @if($case->contact['image'] == 'perfil.png')
                     <img src="{{ asset('img/'.$case->contact['image']) }}" class="img-circle elevation-2" alt="User Image" width="60" height="60"/>
                     @else
                     <img src="{{ asset('storage/user_images/'.$case->contact['image']) }}" class="img-circle elevation-2" alt="User Image" width="60" height="60"/>

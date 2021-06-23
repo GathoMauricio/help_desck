@@ -437,11 +437,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
     var channel = pusher.subscribe('user-{{ Auth::user()->id }}-channel');
 
-    channel.bind('evento', function(data) {
-      alert(JSON.stringify(data));
+    channel.bind('message', function(data) {
+      console.log(data);
+      successNotification(data.message.message);
     });
 
+    channel.bind('updateFollowBox', function(data) {
+      console.log(data);
+      updateFollowBox(data.message.extra.case_id);
+    });
     
+
+
 </script>
 </body>
 </html>

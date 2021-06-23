@@ -18,12 +18,13 @@ if (!function_exists('formatDate')) {
 }
 
 if (!function_exists('sendPusher')) {
-    function sendPusher($id,$event,$message)
+    function sendPusher($id,$event,$message,$extra = null)
     {
         event(new \App\Events\NotificationEvent([
             'id' => $id,
             'event' => $event,
             'message' => $message,
+            'extra' => $extra,
         ]));
     }
 }

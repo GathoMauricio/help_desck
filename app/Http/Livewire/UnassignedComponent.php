@@ -32,5 +32,9 @@ class UnassignedComponent extends Component
         $case->status_id = 2;
         $case->save();
         $this->emit('successNotification',"El caso se ha agregado a su lista en proceso");
+
+
+        $message = "El estatus del caso ".$case->description. " ha cambiado a: En progreso";
+        sendPusher($case->contact['id'],'message',$message);
     }
 }

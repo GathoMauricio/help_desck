@@ -12,6 +12,7 @@ use App\Models\ServiceType;
 use App\Models\ServiceTypeCategory;
 use App\Models\ServiceCategorySymptomp;
 use App\Models\Caze;
+use App\Models\User;
 
 
 class CaseComponent extends Component
@@ -131,6 +132,12 @@ class CaseComponent extends Component
         $this->emit('dismissCreateCaseModal');
         $this->emit('successNotification','La solicitud '.$case->num_case.' se creó con éxito.');
         $this->default();
+
+        $supports = User::where('user_rol_id',2)->get();
+        foreach($supports as $support)
+        {
+            sendPusher($support->id,'new_case','Se han agregado nuevos casos en espera de asignación.');
+        }
     }
 
     public function update()
@@ -143,7 +150,6 @@ class CaseComponent extends Component
 
         if($auxCase->status_id != $this->currentCaseStatus)
         {
-            //Enviar notificación de cambio de estatus
             switch ($this->currentCaseStatus) {
                 case 1:
                     $statusMsg = "Pendiente";
@@ -155,7 +161,10 @@ class CaseComponent extends Component
                     $statusMsg = "Finalizado";
                 break;
             }
-            $this->emit('successNotification','El estatus del caso ha cambiado a: '.$statusMsg);
+            //Enviar notificación de cambio de estatus
+            $message = "El estatus del caso ".$auxCase->description. " ha cambiado a: '.$statusMsg";
+            sendPusher($auxCase->contact['id'],'message',$message);
+            $this->emit('successNotification',$message);
         }
 
         $auxCase->status_id = $this->currentCaseStatus;

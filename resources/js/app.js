@@ -40,7 +40,9 @@ $(() => {
             });
         }
     });
+
 });
+
 //Cliente => servidor
 
 window.createUser = () => $("#modal_create_user").modal();
@@ -62,6 +64,42 @@ window.destroy = id => {
             })
         .set('labels', { ok: 'Si, eliminar!', cancel: 'Cancelar' })
         .set({ transition: 'flipx', title: 'Alerta', message: '¿Eliminar registro?' });
+};
+
+window.updateFollowBox = id => {
+    $("#txt_case_id_follow").val(id);
+    $.ajax({
+        type: 'GET',
+        url: $("#txt_index_case_follow").val() + '/' + id,
+        data: {},
+        success: data => {
+            $("#CaseFollowBox").html('');
+            let counter = 0;
+            $.each(data, function(index, value) {
+                counter++;
+                $("#CaseFollowBox").append(
+                    '<div class="comment-item">' +
+                    '<label class="color-primary-sys font-weight-bold">' +
+                    value.author +
+                    "</label>" +
+                    "<br/>" +
+                    value.body +
+                    "<br/>" +
+                    '<span class="font-weight-bold float-right">' +
+                    value.created_at +
+                    "</span>" +
+                    "<br/>" +
+                    "</div><br/>"
+                );
+            });
+            setTimeout(() => {
+                $("#CaseFollowBox").animate({ scrollTop: $(document).height() * 10000 },
+                    500
+                );
+            }, 500);
+        },
+        error: err => console.log(err)
+    });
 };
 
 window.caseFollow = id => {
