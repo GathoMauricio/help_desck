@@ -42,11 +42,13 @@ class CaseFollowController extends Controller
             //support
             sendPusher($case->support['id'],'message','Se ha agregado seguimiento al caso '.$case->num_case.' : '.$follow->body);
             sendPusher($case->support['id'],'updateFollowBox',"X",['case_id' => $case->id]);
+            sendFcm($case->support['fcm_token'],"Nuevo seguimiento", 'Se ha agregado seguimiento al caso '.$case->num_case.' : '.$follow->body,['case_id' => $case->id]);
         }
         if($case->support['id'] == \Auth::user()->id){
             //contacto
             sendPusher($case->contact['id'],'message','Se ha agregado seguimiento al caso '.$case->num_case.' : '.$follow->body);
             sendPusher($case->contact['id'],'updateFollowBox',"X",['case_id' => $case->id]);
+            sendFcm($case->contact['fcm_token'],"Nuevo seguimiento", 'Se ha agregado seguimiento al caso '.$case->num_case.' : '.$follow->body,['case_id' => $case->id]);
         }
 
         return $json;

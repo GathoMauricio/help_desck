@@ -36,4 +36,11 @@ class UserController extends Controller
                 ];
             }
     }
+    public function UpdateFcmToken(Request $request)
+    {
+        $user = User::find(\Auth::user()->id);
+        $user->fcm_token = $request->fcm_token;
+        $user->save();
+        return $user;
+    }
 }
