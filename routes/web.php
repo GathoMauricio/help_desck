@@ -13,6 +13,7 @@ Route::group(['middleware' => ['auth','admin']],function(){
     Route::get('service_types',function(){ return view('service_type.index'); })->name('service_types');
     Route::get('service_categories',function(){ return view('service_category.index'); })->name('service_categories');
     Route::get('service_simptoms',function(){ return view('service_simptom.index'); })->name('service_simptoms');
+    Route::get('service_suggestion',function(){ return view('service_suggestion.index'); })->name('service_suggestion');
 });
 
 Route::get('cases',function(){ return view('case.index'); })->name('cases');

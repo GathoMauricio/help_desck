@@ -390,6 +390,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <a href="{{ route('service_simptoms') }}">
         <i class="fa fa-cog"></i>  Síntomas de servicio
       </a><br/><br/>
+      <a href="{{ route('service_suggestion') }}">
+        <i class="fa fa-cog"></i>  Sugerencias de servicio
+      </a><br/><br/>
       @endif
 
       <a href="#" onclick="event.preventDefault();
@@ -430,7 +433,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
 
     // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = {{ env('APP_DEBUG') }};
+    Pusher.logToConsole = false;
 
     var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
       cluster: '{{ env('PUSHER_APP_CLUSTER') }}'

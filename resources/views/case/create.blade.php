@@ -55,7 +55,7 @@
             <div class="col-md-3">
               <label class="font-weight-bold">Síntoma de servicio</label>
                 @if(!is_null($simptoms))
-                <select wire:model ="symptomp_id" class="form-control">
+                <select wire:model ="symptomp_id" class="form-control" wire:change = "changeSymptom">
                     <option value>::Seleccione una opción::</option>
                     @foreach($simptoms as $simptom)
                     <option value="{{ $simptom->id }}">{{ $simptom->name }}</option>
@@ -89,7 +89,17 @@
                 @error('description') <span class="error-message">{{ $message }}</span> @enderror
             </div>
         </div>
-
+        @if(!is_null($suggestions))
+        <input wire:model="cb_suggest" type='checkbox' > {{ $cb_suggest }} He leido y comprobado que he llevado a cabo todas las sugerencias antes de continuar.
+        @foreach($suggestions as $suggestion)
+        <div class="row"> 
+          <div class="col-md-12">
+              <span class="text-info">* {{ $suggestion->body }}<span> <br/>
+          </div>
+        </div>
+        @endforeach
+          @error("cb_suggest") <br/><span class="error-message">{{ $message }}</span> @enderror
+        @endif
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

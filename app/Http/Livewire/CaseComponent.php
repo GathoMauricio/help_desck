@@ -11,6 +11,7 @@ use App\Models\ServiceArea;
 use App\Models\ServiceType;
 use App\Models\ServiceTypeCategory;
 use App\Models\ServiceCategorySymptomp;
+use App\Models\SymptomSuggestion;
 use App\Models\Caze;
 use App\Models\User;
 
@@ -25,7 +26,7 @@ class CaseComponent extends Component
     use WithFileUploads;
 
     public $currentArea = null, $currentServiceType = null, $currentServiceTypeCategory = null;
-    public $types = null,$categories = null,$simptoms = null;
+    public $types = null,$categories = null,$simptoms = null, $suggestions = null, $cb_suggest;
 
     public $case_id,$symptomp_id = null, $priority_case_id, $description;
 
@@ -34,7 +35,12 @@ class CaseComponent extends Component
     public $search_text;
 
     public $self_component = 'case';
+
     public $status_case;
+
+    protected $rules = [
+        'suggestions.*' => ['required']
+    ];
 
     public function render()
     {
@@ -103,6 +109,8 @@ class CaseComponent extends Component
 
     public function store ()
     {
+        
+
         $this->validate([
             'currentArea' => 'required',
             'currentServiceType' => 'required',
@@ -110,13 +118,18 @@ class CaseComponent extends Component
             'symptomp_id' => 'required',
             'priority_case_id' => 'required',
             'description' => 'required',
-        ],[
+            'cb_suggest' => 'required|integer|min:1',
+        ]
+        ,[
             'currentArea.required' => 'Campo obligatorio',
             'currentServiceType.required' => 'Campo obligatorio',
             'currentServiceTypeCategory.required' => 'Campo obligatorio',
             'symptomp_id.required' => 'Campo obligatorio',
             'priority_case_id.required' => 'Campo obligatorio',
             'description.required' => 'Campo obligatorio',
+            'cb_suggest.required' => "Por favor confirme que ha leido las sugerencias",
+            'cb_suggest.integer' => "Por favor confirme que ha leido las sugerencias",
+            'cb_suggest.min' => "Por favor confirme que ha leido las sugerencias",
         ]);
         
         $lastCase = Caze::orderBy('id','DESC')->first();
@@ -214,6 +227,13 @@ class CaseComponent extends Component
         }
     }
 
+    public function changeSymptom()
+    {
+        if(strlen($this->symptomp_id) > 0){ 
+            $this->suggestions = SymptomSuggestion::where('symptom_id', $this->symptomp_id)->get();
+        }
+    }
+
     public function default()
     {
         $this->currentServiceType = null;
@@ -224,4 +244,5 @@ class CaseComponent extends Component
         $this->categories = null;
         $this->simptoms = null;
     }
+   
 }
