@@ -69,6 +69,18 @@
 
         </div>
 
+        @if(!is_null($suggestions))
+        <input wire:model="cb_suggest" type='checkbox' > {{ $cb_suggest }} He leido y comprobado que he llevado a cabo todas las sugerencias antes de continuar.
+        @foreach($suggestions as $suggestion)
+        <div class="row"> 
+          <div class="col-md-12">
+              <span class="text-info">* {{ $suggestion->body }}<span> <br/>
+          </div>
+        </div>
+        @endforeach
+          @error("cb_suggest") <br/><span class="error-message">{{ $message }}</span> @enderror
+        @endif
+
         <div class="row">
             <div class="col-md-12">
               <label class="font-weight-bold">Prioridad</label>
@@ -89,17 +101,9 @@
                 @error('description') <span class="error-message">{{ $message }}</span> @enderror
             </div>
         </div>
-        @if(!is_null($suggestions))
-        <input wire:model="cb_suggest" type='checkbox' > {{ $cb_suggest }} He leido y comprobado que he llevado a cabo todas las sugerencias antes de continuar.
-        @foreach($suggestions as $suggestion)
-        <div class="row"> 
-          <div class="col-md-12">
-              <span class="text-info">* {{ $suggestion->body }}<span> <br/>
-          </div>
-        </div>
-        @endforeach
-          @error("cb_suggest") <br/><span class="error-message">{{ $message }}</span> @enderror
-        @endif
+
+        
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
