@@ -21,7 +21,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button wire:click = "store" type="button" class="btn btn-primary">Guardar</button>
+                <button wire:click = "storeBinnacle" type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div>
     </div>

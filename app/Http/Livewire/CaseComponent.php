@@ -14,13 +14,14 @@ use App\Models\ServiceCategorySymptomp;
 use App\Models\SymptomSuggestion;
 use App\Models\Caze;
 use App\Models\User;
-
+use App\Models\CaseBinnacle;
+use App\Models\BinnacleImage;
 
 class CaseComponent extends Component
 {
     protected $paginationTheme = 'bootstrap';
 
-    protected $listeners = ['destroy' => 'destroy'];
+    protected $listeners = ['destroy' => 'destroy','destroyBinnacle' => 'destroyBinnacle'];
 
     use WithPagination;
     use WithFileUploads;
@@ -38,9 +39,17 @@ class CaseComponent extends Component
 
     public $status_case;
 
-    protected $rules = [
-        'suggestions.*' => ['required']
-    ];
+    #Propiedades para manipular bítácoras
+    public
+        $curent_case_id = null,
+        $current_binnacle_id = null,
+        $binnacles = null,
+        $case_binnacle_description = null
+        ;
+    #propiedades para manipular imagenes de bitácora
+    public
+        $binnacle_image,
+        $binnacle_image_description;
 
     public function render()
     {
@@ -107,6 +116,90 @@ class CaseComponent extends Component
         $this->emit('showCaseModal');
     }
 
+    public function createBinnacleImage($id)
+    {
+        $this->current_binnacle_id = $id;
+        $this->emit('createBinnacleImageModal');
+    }
+    public function storeBinnacleImage()
+    {
+        $this->validate([
+            'binnacle_image' => 'required',
+            'binnacle_image_description' => 'required',
+        ],[
+            'binnacle_image.required' => 'Este campo es obligatorio',
+            'binnacle_image_description.required' =>  'Este campo es obligatorio',
+        ]);
+        //BinnacleImage
+        $binnacle = BinnacleImage::create([
+            'binnacle_id' => $this->current_binnacle_id,
+            'description' => $this->binnacle_image_description
+        ]);
+        $imageName = 'BinnacleImage['.$binnacle->id.']'.\Str::random(60).'.png';
+        $this->binnacle_image->storeAs('binnacle_images',$imageName);
+        $binnacle->image = $imageName;
+        $binnacle->save();
+        $this->current_binnacle_id = null;
+        $this->binnacle_image = null;
+        $this->binnacle_image_description = null;
+        $this->emit('dissmisCreateBinnacleImage');
+        $this->emit('successNotification','La imagen '.$binnacle->description,' se almacenó con éxito');
+    }
+
+    public function showBinnacles($id){
+        $this->binnacles = CaseBinnacle::where('case_id',$id)->get();
+        $this->curent_case_id = $id;
+        $this->emit('showCaseBinnacles');
+    }
+
+    public function storeBinnacle()
+    {
+        $this->validate([
+            'case_binnacle_description' => 'required'
+        ],[
+            'case_binnacle_description.required' => 'Este campo es obligatorio.'
+        ]);
+        $binnacle = CaseBinnacle::create([
+            'case_id' => $this->curent_case_id,
+            'description' => $this->case_binnacle_description
+        ]);
+        $this->binnacles = CaseBinnacle::where('case_id',$this->curent_case_id)->get();
+        $this->case_binnacle_description = null;
+        $this->emit('dissmisCreateCaseBinnacle');
+        $this->emit('successNotification','La bitácora '.$binnacle->description.' ha sido creada.');
+    }
+
+    public function editBinnacle($id)
+    {
+        $binnacle = CaseBinnacle::find($id);
+        $this->current_binnacle_id = $binnacle->id;
+        $this->case_binnacle_description = $binnacle->description;
+        $this->emit('editCaseBinnacle');
+    }
+
+    public function updateBinnacle()
+    {
+        $this->validate([
+            'case_binnacle_description' => 'required'
+        ],[
+            'case_binnacle_description.required' => 'Este campo es obligatorio.'
+        ]);
+        $binnacle = CaseBinnacle::find($this->current_binnacle_id);
+        $binnacle->description = $this->case_binnacle_description;
+        $binnacle->save();
+        $this->binnacles = CaseBinnacle::where('case_id',$this->curent_case_id)->get();
+        $this->case_binnacle_description = null;
+        $this->emit('successNotification','La bitácora '.$binnacle->description.' ha sido actualizada.');
+        $this->emit('dissmisEditCaseBinnacle');
+    }
+
+    public function destroyBinnacle($id)
+    {
+        $binnacle = CaseBinnacle::find($id);
+        $binnacle->delete();
+        $this->binnacles = CaseBinnacle::where('case_id',$this->curent_case_id)->get();
+        $this->emit('successNotification','La bitácora  ha sido eliminada.');
+    }
     public function store ()
     {
         

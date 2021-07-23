@@ -90,8 +90,8 @@
                 @endif
                 </td>
                 <td><span wire:click = "show({{ $case->id }})" class="fa fa-eye text-info" style="cursor: pointer;"></span></td>
-                <td><span onclick="caseFollow({{ $case->id }})" class="fa fa-comments text-primary" style="cursor: pointer;"></span></td>
-                <td><a href="{{ route('case_binnacles',$case->id) }}" target="_blank" class="fa fa-book" style="color:#8E44AD;"></a></td>
+                <td><span onclick="caseFollow({{ $case->id }})" class="fa fa-comments text-primary" style="cursor: pointer;">{{ count(\App\Models\CaseFollow::where('case_id',$case->id)->get()) }}</span> </td>
+                <td><span wire:click="showBinnacles({{ $case->id }})" target="_blank" class="fa fa-book" style="color:#8E44AD;cursor: pointer;"></span></td>
                 <td>
                 @if(\Auth::user()->user_rol_id == 1)
                 <span onclick="destroy({{ $case->id }});" class="fa fa-trash text-danger" style="cursor: pointer;"></span>

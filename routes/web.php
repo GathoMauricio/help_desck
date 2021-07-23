@@ -26,4 +26,4 @@ Route::get('cases_unassigned',function(){ return view('case.unassigned'); })->na
 Route::get('index_case_follow/{id?}',[\App\Http\Controllers\CaseFollowController::class,'index'])->name('index_case_follow');
 Route::get('store_case_follow',[\App\Http\Controllers\CaseFollowController::class,'store'])->name('store_case_follow');
 
-Route::get('case_binnacles/{id}',[\App\Http\Controllers\CaseBinnacleController::class,'index'])->name('case_binnacles');
+Route::get('binnacle_images_index/{id?}',[\App\Http\Controllers\BinnacleImageController::class,'index'])->name('binnacle_images_index')->middleware('auth');

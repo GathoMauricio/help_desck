@@ -21,7 +21,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button wire:click = "update" type="button" class="btn btn-primary">Actualizar</button>
+                <button wire:click = "updateBinnacle" type="button" class="btn btn-primary">Actualizar</button>
             </div>
         </div>
     </div>

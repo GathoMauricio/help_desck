@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('page_title','Bitácoras del caso '.$case->num_case)
+@section('page_title','Bitácoras del caso')
 @section('content')
-@livewire('case-binnacle-component',['case_id',request()->id])
+@livewire('case-binnacle-component')
 @endsection

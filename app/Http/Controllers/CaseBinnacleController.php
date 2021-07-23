@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 class CaseBinnacleController extends Controller
 {
-    public function index($id){
-        $case =  \App\Models\Caze::findOrFail($id);
+    public function index(){
+        //$case =  \App\Models\Caze::findOrFail($id);
+        $case = [];
         return view('case_binnacle.index',['case' => $case]);
     }
 }

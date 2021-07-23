@@ -67,3 +67,10 @@ if (!function_exists('sendFcm')) {
            return $result;
    }
 }
+
+if (!function_exists('getUrl')) {
+    function getUrl()
+    {
+        return env('APP_URL');
+    }
+}

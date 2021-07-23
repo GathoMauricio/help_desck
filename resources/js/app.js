@@ -68,6 +68,18 @@ window.destroy = id => {
         .set({ transition: 'flipx', title: 'Alerta', message: '¿Eliminar registro?' });
 };
 
+window.destroyBinnacle = id => {
+    alertify.confirm("",
+            function() {
+                Livewire.emit('destroyBinnacle', id);
+            },
+            function() {
+                //alertify.error('Cancel');
+            })
+        .set('labels', { ok: 'Si, eliminar!', cancel: 'Cancelar' })
+        .set({ transition: 'flipx', title: 'Alerta', message: '¿Eliminar registro?' });
+};
+
 window.updateFollowBox = id => {
     $("#txt_case_id_follow").val(id);
     $.ajax({
@@ -177,6 +189,9 @@ window.errorNotification = text => {
 };
 //-------------------------------------------------------------------------------------------------------------------------------------------
 //Servidor => cliente
+Livewire.on('showCaseBinnacles',() =>$("#modal_show_case_binnacles").modal());
+Livewire.on('createBinnacleImageModal',() =>$("#modal_create_binnacle_image").modal())
+
 Livewire.on('editUser', () => $("#modal_edit_user").modal());
 Livewire.on('editCompany', () => $("#modal_edit_company").modal());
 Livewire.on('editCompanyBranch', () => $("#modal_edit_company_branch").modal());
@@ -212,6 +227,8 @@ Livewire.on('dismissEditSymptomModal', () => $("#modal_edit_symptom").modal('hid
 Livewire.on('dissmisCreateCaseBinnacle',() => $("#modal_create_case_binnacle").modal('hide'));
 Livewire.on('dissmisEditCaseBinnacle',() => $("#modal_edit_case_binnacle").modal('hide'));
 
+Livewire.on('dissmisCreateBinnacleImage',() => $("#modal_create_binnacle_image").modal('hide'))
+
 Livewire.on('msg', (text) => {
     alertify
         .alert(text, function() {
@@ -226,3 +243,37 @@ Livewire.on('successNotification', (text) => {
 Livewire.on('errorNotification', (text) => {
     alertify.error(text);
 });
+
+window.viewBinnacleImages = (binnacle_id, count) => {
+    if (count > 0) {
+        const route = $("#txt_view_binnacle_images_route").val();
+        let viewer = new PhotoViewer();
+        viewer.disableEmailLink();
+        viewer.enableLoop();
+        viewer.enableAutoPlay();
+        viewer.setFontSize(16);
+        const show_binnacle_image = $("#txt_show_binnacle_image_route").val();
+        /*
+        viewer.permalink = () => {
+            window.open(show_binnacle_image + '/' + $("#PhotoViewerByline").text());
+        };
+        */
+        $.ajax({
+            type: 'GET',
+            url: route + '/' + binnacle_id,
+            data: {},
+            success: data => {
+                console.log(data);
+                $.each(data, (index, item) => {
+                    viewer.add(item.url, item.description, item.date, '' + item.id);
+                });
+                viewer.show(0);
+            },
+            error: error => console.log(error)
+        });
+
+    } else {
+        errorNotification("No hay imagenes para mostrar");
+    }
+
+};
