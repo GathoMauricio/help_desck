@@ -55,6 +55,7 @@ window.createType = () => $("#modal_create_type").modal();
 window.createCategory = () => $("#modal_create_category").modal();
 window.createSymptom = () => $("#modal_create_symptom").modal();
 window.createSuggestion = () => $("#modal_create_suggestion").modal();
+window.createCaseBinnacle = () => $("#modal_create_case_binnacle").modal();
 window.destroy = id => {
     alertify.confirm("",
             function() {
@@ -184,6 +185,7 @@ Livewire.on('editType', () => $("#modal_edit_type").modal());
 Livewire.on('editCategory', () => $("#modal_edit_category").modal());
 Livewire.on('editSymptomp', () => $("#modal_edit_symptom").modal());
 Livewire.on('editSuggestion', () => $("#modal_edit_suggestion").modal());
+Livewire.on('editCaseBinnacle', () => $("#modal_edit_case_binnacle").modal());
 
 Livewire.on('showCaseModal', () => $("#modal_show_case").modal());
 
@@ -207,6 +209,8 @@ Livewire.on('dismissEditAreaModal', () => $("#modal_edit_area").modal('hide'));
 Livewire.on('dismissEditTypeModal', () => $("#modal_edit_type").modal('hide'));
 Livewire.on('dismissEditCategoryModal', () => $("#modal_edit_category").modal('hide'));
 Livewire.on('dismissEditSymptomModal', () => $("#modal_edit_symptom").modal('hide'));
+Livewire.on('dissmisCreateCaseBinnacle',() => $("#modal_create_case_binnacle").modal('hide'));
+Livewire.on('dissmisEditCaseBinnacle',() => $("#modal_edit_case_binnacle").modal('hide'));
 
 Livewire.on('msg', (text) => {
     alertify

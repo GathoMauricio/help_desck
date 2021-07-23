@@ -22,7 +22,7 @@
                 <th>Sintoma</th>
                 <th>Prioridad</th>
                 <th>Estatus</th>
-                <th colspan="3">&nbsp</th>
+                <th colspan="4">&nbsp</th>
             </tr>
         </thead>
         <tbody>
@@ -91,6 +91,7 @@
                 </td>
                 <td><span wire:click = "show({{ $case->id }})" class="fa fa-eye text-info" style="cursor: pointer;"></span></td>
                 <td><span onclick="caseFollow({{ $case->id }})" class="fa fa-comments text-primary" style="cursor: pointer;"></span></td>
+                <td><a href="{{ route('case_binnacles',$case->id) }}" target="_blank" class="fa fa-book" style="color:#8E44AD;"></a></td>
                 <td>
                 @if(\Auth::user()->user_rol_id == 1)
                 <span onclick="destroy({{ $case->id }});" class="fa fa-trash text-danger" style="cursor: pointer;"></span>
