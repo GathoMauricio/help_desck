@@ -27,3 +27,9 @@ Route::get('index_case_follow/{id?}',[\App\Http\Controllers\CaseFollowController
 Route::get('store_case_follow',[\App\Http\Controllers\CaseFollowController::class,'store'])->name('store_case_follow');
 
 Route::get('binnacle_images_index/{id?}',[\App\Http\Controllers\BinnacleImageController::class,'index'])->name('binnacle_images_index')->middleware('auth');
+
+Route::get('fcm',function(){
+    return sendFcm(
+        'cigCTiq-Sfe0jUpyvmke_S:APA91bG5-7XR4qUE8pJiACu83NDzAoNEj5KZgKlzmpjSq_uCM42crLruX568KDi44f8MH6iSCjLGh4-07WS09jdXl24eSjbhQAb7C17a0wHP6MJDA-DEz9EGYB8vyyBZ6_sBFD9cb4vc', 
+        'Test', 'Primer prueba', ['dato1' => "sdsadcxzc", 'dato2' => "mdlkfkdngnfld"]);
+})->name('fcm');

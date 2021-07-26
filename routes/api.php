@@ -17,6 +17,17 @@ Route::middleware('auth:api')
 ->name('update_fcm_token');
 
 Route::middleware('auth:api')
+->put('delete_fcm',[\App\Http\Controllers\UserController::class,'DeleteFcmToken'])
+->name('delete_fcm');
+
+Route::middleware('auth:api')
+->get('load_all_cases',[\App\Http\Controllers\CaseController::class,'loadAllCases'])
+->name('load_all_cases');
+
+
+
+
+Route::middleware('auth:api')
 ->get('case_index',[\App\Http\Controllers\CaseController::class,'index'])
 ->name('case_index');
 

@@ -94,4 +94,51 @@ class CaseController extends Controller
         $sintomas = ServiceCategorySymptomp::where('service_type_category_id', $request->categoria_id)->orderBy('name')->get();
         return ['sintomas' => $sintomas];
     }
+
+    public function loadAllCases(Request $request)
+    {
+        switch(\Auth::user()->user_rol_id)
+        {
+            case 1: 
+                $cases = Caze::orderBy('id','DESC')->get();
+                break;
+            case 2: 
+                $cases = Caze::where('user_support_id',\Auth::user()->id)->orderBy('id','DESC')->get();
+                break;
+            case 3: 
+                $cases = Caze::where('user_contact_id',\Auth::user()->id)->orderBy('id','DESC')->get();
+                break;
+        }
+        $json = [];
+        foreach($cases as $case)
+        {
+            if(!is_null($case->user_support_id))
+            {
+                $asignado = $case->support['name'].' '.$case->support['middle_name'].' '.$case->support['last_name'];
+            }else{ $asignado = "No disponible"; }
+            
+            $json[] = [
+                "caso" => $case->num_case,
+                "fecha" => formatDate($case->created_at),
+                "area" => $case->symptomp->category->type->area['name'],
+                "servicio" => $case->symptomp->category->type['name'],
+                "categoria" => $case->symptomp->category['name'],
+                "sintoma" => $case->symptomp['name'],
+                "descripcion" => $case->description,
+                "estatus" => $case->status['name'],
+                "id_estatus" => $case->status_id,
+                "prioridad" => $case->priority['name'],
+                "prioridad_id" => $case->priority_case_id,
+
+                "contacto" => $case->contact['name'].' '.$case->contact['middle_name'].' '.$case->contact['last_name'],
+                "empresa" =>$case->contact->branch->company['name'],
+                "sucursal" => $case->contact->branch['name'],
+
+                "asignado" => $asignado,
+                "retroalimentacion" => $case->feedback
+            ];
+        }
+        return $json;
+    }
+
 }

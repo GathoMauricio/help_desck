@@ -12,7 +12,7 @@ if (!function_exists('formatDate')) {
         $mesesN[date_format(new \DateTime($date), 'n')].
         ' del '.
         date_format(new \DateTime($date), 'Y')
-        .' a las '.
+        .' '.
         date_format(new \DateTime($date),'g:i A');
     }
 }
