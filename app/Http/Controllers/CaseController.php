@@ -10,6 +10,7 @@ use App\Models\ServiceArea;
 use App\Models\ServiceType;
 use App\Models\ServiceTypeCategory;
 use App\Models\ServiceCategorySymptomp;
+use App\Models\SymptomSuggestion;
 
 use App\Models\CasePriority;
 
@@ -17,27 +18,26 @@ class CaseController extends Controller
 {
     public function index()
     {
-        switch(\Auth::user()->user_rol_id)
-        {
-            case 1: 
-                $cases = Caze::orderBy('id','DESC')->get();
+        switch (\Auth::user()->user_rol_id) {
+            case 1:
+                $cases = Caze::orderBy('id', 'DESC')->get();
                 break;
-            case 2: 
-                $cases = Caze::where('user_support_id',\Auth::user()->id)->orderBy('id','DESC')->get();
+            case 2:
+                $cases = Caze::where('user_support_id', \Auth::user()->id)->orderBy('id', 'DESC')->get();
                 break;
-            case 3: 
-                $cases = Caze::where('user_contact_id',\Auth::user()->id)->orderBy('id','DESC')->get();
+            case 3:
+                $cases = Caze::where('user_contact_id', \Auth::user()->id)->orderBy('id', 'DESC')->get();
                 break;
         }
         $json = [];
-        foreach($cases as $case){
+        foreach ($cases as $case) {
             $json[] = [
                 'id' => $case->id,
                 'case' => $case->num_case,
                 'priority' => $case->priority['name'],
                 'status' => $case->status['name'],
-                'branch' => $case->contact->branch->company['name'].' - '.$case->contact->branch['name'],
-                'author' => $case->contact['name'].' '.$case->contact['middle_name'].' '.$case->contact['last_name'],
+                'branch' => $case->contact->branch->company['name'] . ' - ' . $case->contact->branch['name'],
+                'author' => $case->contact['name'] . ' ' . $case->contact['middle_name'] . ' ' . $case->contact['last_name'],
                 'description' => $case->description,
                 'date' => formatDate($case->created_at)
             ];
@@ -54,25 +54,26 @@ class CaseController extends Controller
             'areas' => $areas,
             'prioridades' => $prioridades
         ];
-
     }
 
     public function store(Request $request)
     {
-        $lastCase = Caze::orderBy('id','DESC')->first();
-        $explode = explode('NUM',$lastCase->num_case);
+        $lastCase = Caze::orderBy('id', 'DESC')->first();
+        $explode = explode('NUM', $lastCase->num_case);
 
         $case = Caze::create([
-            'num_case' => 'NUM'.($explode[1] + 1),
+            'num_case' => 'NUM' . ($explode[1] + 1),
             'symptomp_id' => $request->symptomp_id,
             'priority_case_id' => $request->priority_case_id,
             'description' => $request->description
         ]);
-        $supports = User::where('user_rol_id',2)->get();
-        foreach($supports as $support)
-        {
-            sendPusher($support->id,'message','Se han agregado nuevos casos en espera de asignación.');
-            sendFcm($support->fcm_token,"Nuevos casos", 'Se han agregado nuevos casos en espera de asignación.',['case_id' => $case->id]);
+        $supports = User::where(function($q){
+            $q->where('user_rol_id', 1);
+            $q->orWhere('user_rol_id', 2);
+        })->get();
+        foreach ($supports as $support) {
+            sendPusher($support->id, 'message', 'Se han agregado nuevos casos en espera de asignación.');
+            sendFcm($support->fcm_token, "Nuevos casos", 'Se han agregado nuevos casos en espera de asignación.', ['case_id' => $case->id]);
         }
         return $case;
     }
@@ -95,29 +96,35 @@ class CaseController extends Controller
         return ['sintomas' => $sintomas];
     }
 
+    public function changeSintoma(Request $request)
+    {
+        $sugerencias = SymptomSuggestion::where('symptom_id', $request->sintoma_id)->orderBy('body')->get();
+        return ['sugerencias' => $sugerencias];
+    }
+
     public function loadAllCases(Request $request)
     {
-        switch(\Auth::user()->user_rol_id)
-        {
-            case 1: 
-                $cases = Caze::orderBy('id','DESC')->get();
+        switch (\Auth::user()->user_rol_id) {
+            case 1:
+                $cases = Caze::orderBy('id', 'DESC')->get();
                 break;
-            case 2: 
-                $cases = Caze::where('user_support_id',\Auth::user()->id)->orderBy('id','DESC')->get();
+            case 2:
+                $cases = Caze::where('user_support_id', \Auth::user()->id)->orderBy('id', 'DESC')->get();
                 break;
-            case 3: 
-                $cases = Caze::where('user_contact_id',\Auth::user()->id)->orderBy('id','DESC')->get();
+            case 3:
+                $cases = Caze::where('user_contact_id', \Auth::user()->id)->orderBy('id', 'DESC')->get();
                 break;
         }
         $json = [];
-        foreach($cases as $case)
-        {
-            if(!is_null($case->user_support_id))
-            {
-                $asignado = $case->support['name'].' '.$case->support['middle_name'].' '.$case->support['last_name'];
-            }else{ $asignado = "No disponible"; }
-            
+        foreach ($cases as $case) {
+            if (!is_null($case->user_support_id)) {
+                $asignado = $case->support['name'] . ' ' . $case->support['middle_name'] . ' ' . $case->support['last_name'];
+            } else {
+                $asignado = "No disponible";
+            }
+
             $json[] = [
+                "id" => $case->id,
                 "caso" => $case->num_case,
                 "fecha" => formatDate($case->created_at),
                 "area" => $case->symptomp->category->type->area['name'],
@@ -130,8 +137,53 @@ class CaseController extends Controller
                 "prioridad" => $case->priority['name'],
                 "prioridad_id" => $case->priority_case_id,
 
-                "contacto" => $case->contact['name'].' '.$case->contact['middle_name'].' '.$case->contact['last_name'],
-                "empresa" =>$case->contact->branch->company['name'],
+                "contacto" => $case->contact['name'] . ' ' . $case->contact['middle_name'] . ' ' . $case->contact['last_name'],
+                "empresa" => $case->contact->branch->company['name'],
+                "sucursal" => $case->contact->branch['name'],
+
+                "asignado" => $asignado,
+                "retroalimentacion" => $case->feedback
+            ];
+        }
+        return $json;
+    }
+    public function loadPendingCases(Request $request)
+    {
+        switch (\Auth::user()->user_rol_id) {
+            case 1:
+                $cases = Caze::where('status_id', 1)->orderBy('id', 'DESC')->get();
+                break;
+            case 2:
+                $cases = Caze::where('status_id', 1)->where('user_support_id', \Auth::user()->id)->orderBy('id', 'DESC')->get();
+                break;
+            case 3:
+                $cases = Caze::where('status_id', 1)->where('user_contact_id', \Auth::user()->id)->orderBy('id', 'DESC')->get();
+                break;
+        }
+        $json = [];
+        foreach ($cases as $case) {
+            if (!is_null($case->user_support_id)) {
+                $asignado = $case->support['name'] . ' ' . $case->support['middle_name'] . ' ' . $case->support['last_name'];
+            } else {
+                $asignado = "No disponible";
+            }
+
+            $json[] = [
+                "id" => $case->id,
+                "caso" => $case->num_case,
+                "fecha" => formatDate($case->created_at),
+                "area" => $case->symptomp->category->type->area['name'],
+                "servicio" => $case->symptomp->category->type['name'],
+                "categoria" => $case->symptomp->category['name'],
+                "sintoma" => $case->symptomp['name'],
+                "descripcion" => $case->description,
+                "estatus" => $case->status['name'],
+                "id_estatus" => $case->status_id,
+                "prioridad" => $case->priority['name'],
+                "prioridad_id" => $case->priority_case_id,
+
+                "contacto" => $case->contact['name'] . ' ' . $case->contact['middle_name'] . ' ' . $case->contact['last_name'],
+                "empresa" => $case->contact->branch->company['name'],
                 "sucursal" => $case->contact->branch['name'],
 
                 "asignado" => $asignado,
@@ -141,4 +193,151 @@ class CaseController extends Controller
         return $json;
     }
 
+    public function loadProgressCases(Request $request)
+    {
+        switch (\Auth::user()->user_rol_id) {
+            case 1:
+                $cases = Caze::where('status_id', 2)->orderBy('id', 'DESC')->get();
+                break;
+            case 2:
+                $cases = Caze::where('status_id', 2)->where('user_support_id', \Auth::user()->id)->orderBy('id', 'DESC')->get();
+                break;
+            case 3:
+                $cases = Caze::where('status_id', 2)->where('user_contact_id', \Auth::user()->id)->orderBy('id', 'DESC')->get();
+                break;
+        }
+        $json = [];
+        foreach ($cases as $case) {
+            if (!is_null($case->user_support_id)) {
+                $asignado = $case->support['name'] . ' ' . $case->support['middle_name'] . ' ' . $case->support['last_name'];
+            } else {
+                $asignado = "No disponible";
+            }
+
+            $json[] = [
+                "id" => $case->id,
+                "caso" => $case->num_case,
+                "fecha" => formatDate($case->created_at),
+                "area" => $case->symptomp->category->type->area['name'],
+                "servicio" => $case->symptomp->category->type['name'],
+                "categoria" => $case->symptomp->category['name'],
+                "sintoma" => $case->symptomp['name'],
+                "descripcion" => $case->description,
+                "estatus" => $case->status['name'],
+                "id_estatus" => $case->status_id,
+                "prioridad" => $case->priority['name'],
+                "prioridad_id" => $case->priority_case_id,
+
+                "contacto" => $case->contact['name'] . ' ' . $case->contact['middle_name'] . ' ' . $case->contact['last_name'],
+                "empresa" => $case->contact->branch->company['name'],
+                "sucursal" => $case->contact->branch['name'],
+
+                "asignado" => $asignado,
+                "retroalimentacion" => $case->feedback
+            ];
+        }
+        return $json;
+    }
+
+    public function loadFinishCases(Request $request)
+    {
+        switch (\Auth::user()->user_rol_id) {
+            case 1:
+                $cases = Caze::where('status_id', 3)->orderBy('id', 'DESC')->get();
+                break;
+            case 2:
+                $cases = Caze::where('status_id', 3)->where('user_support_id', \Auth::user()->id)->orderBy('id', 'DESC')->get();
+                break;
+            case 3:
+                $cases = Caze::where('status_id', 3)->where('user_contact_id', \Auth::user()->id)->orderBy('id', 'DESC')->get();
+                break;
+        }
+        $json = [];
+        foreach ($cases as $case) {
+            if (!is_null($case->user_support_id)) {
+                $asignado = $case->support['name'] . ' ' . $case->support['middle_name'] . ' ' . $case->support['last_name'];
+            } else {
+                $asignado = "No disponible";
+            }
+
+            $json[] = [
+                "id" => $case->id,
+                "caso" => $case->num_case,
+                "fecha" => formatDate($case->created_at),
+                "area" => $case->symptomp->category->type->area['name'],
+                "servicio" => $case->symptomp->category->type['name'],
+                "categoria" => $case->symptomp->category['name'],
+                "sintoma" => $case->symptomp['name'],
+                "descripcion" => $case->description,
+                "estatus" => $case->status['name'],
+                "id_estatus" => $case->status_id,
+                "prioridad" => $case->priority['name'],
+                "prioridad_id" => $case->priority_case_id,
+
+                "contacto" => $case->contact['name'] . ' ' . $case->contact['middle_name'] . ' ' . $case->contact['last_name'],
+                "empresa" => $case->contact->branch->company['name'],
+                "sucursal" => $case->contact->branch['name'],
+
+                "asignado" => $asignado,
+                "retroalimentacion" => $case->feedback
+            ];
+        }
+        return $json;
+    }
+
+    public function loadUnasignedCases(Request $request)
+    {
+        switch (\Auth::user()->user_rol_id) {
+            case 1:
+                $cases = Caze::where('user_support_id', NULL)->orderBy('id', 'DESC')->get();
+                break;
+            case 2:
+                $cases = Caze::where('user_support_id', NULL)->where('user_support_id', \Auth::user()->id)->orderBy('id', 'DESC')->get();
+                break;
+            case 3:
+                $cases = Caze::where('user_support_id', NULL)->where('user_contact_id', \Auth::user()->id)->orderBy('id', 'DESC')->get();
+                break;
+        }
+        $json = [];
+        foreach ($cases as $case) {
+            if (!is_null($case->user_support_id)) {
+                $asignado = $case->support['name'] . ' ' . $case->support['middle_name'] . ' ' . $case->support['last_name'];
+            } else {
+                $asignado = "No disponible";
+            }
+
+            $json[] = [
+                "id" => $case->id,
+                "caso" => $case->num_case,
+                "fecha" => formatDate($case->created_at),
+                "area" => $case->symptomp->category->type->area['name'],
+                "servicio" => $case->symptomp->category->type['name'],
+                "categoria" => $case->symptomp->category['name'],
+                "sintoma" => $case->symptomp['name'],
+                "descripcion" => $case->description,
+                "estatus" => $case->status['name'],
+                "id_estatus" => $case->status_id,
+                "prioridad" => $case->priority['name'],
+                "prioridad_id" => $case->priority_case_id,
+
+                "contacto" => $case->contact['name'] . ' ' . $case->contact['middle_name'] . ' ' . $case->contact['last_name'],
+                "empresa" => $case->contact->branch->company['name'],
+                "sucursal" => $case->contact->branch['name'],
+
+                "asignado" => $asignado,
+                "retroalimentacion" => $case->feedback
+            ];
+        }
+        return $json;
+    }
+
+    public function obetenerAreas(){
+        $areas = ServiceArea::orderBy('name')->get();
+        $prioridades = CasePriority::all();
+
+        return [
+            'areas' => $areas,
+            'prioridades' => $prioridades
+        ];
+    }
 }

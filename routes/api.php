@@ -24,6 +24,29 @@ Route::middleware('auth:api')
 ->get('load_all_cases',[\App\Http\Controllers\CaseController::class,'loadAllCases'])
 ->name('load_all_cases');
 
+Route::middleware('auth:api')
+->get('load_pending_cases',[\App\Http\Controllers\CaseController::class,'loadPendingCases'])
+->name('load_pending_cases');
+
+Route::middleware('auth:api')
+->get('load_progress_cases',[\App\Http\Controllers\CaseController::class,'loadProgressCases'])
+->name('load_progress_cases');
+
+Route::middleware('auth:api')
+->get('load_finish_cases',[\App\Http\Controllers\CaseController::class,'loadFinishCases'])
+->name('load_finish_cases');
+
+
+Route::middleware('auth:api')
+->get('load_unasigned_cases',[\App\Http\Controllers\CaseController::class,'loadUnasignedCases'])
+->name('load_unasigned_cases');
+
+Route::middleware('auth:api')
+->get('obtener_areas',[\App\Http\Controllers\CaseController::class,'obetenerAreas'])
+->name('obtener_areas');
+
+
+
 
 
 
@@ -39,6 +62,9 @@ Route::middleware('auth:api')
 ->post('case_store',[\App\Http\Controllers\CaseController::class,'store'])
 ->name('case_store');
 
+
+
+
 Route::middleware('auth:api')
 ->get('change_area',[\App\Http\Controllers\CaseController::class,'changeArea'])
 ->name('change_area');
@@ -50,3 +76,7 @@ Route::middleware('auth:api')
 Route::middleware('auth:api')
 ->get('change_categoria',[\App\Http\Controllers\CaseController::class,'changeCategoria'])
 ->name('change_categoria');
+
+Route::middleware('auth:api')
+->get('change_sintoma',[\App\Http\Controllers\CaseController::class,'changeSintoma'])
+->name('change_sintoma');

@@ -78,7 +78,7 @@
           </div>
         </div>
         @endforeach
-        <input wire:model="cb_suggest" type='checkbox' > {{ $cb_suggest }} He leido y comprobado que he llevado a cabo todas las sugerencias antes de continuar.
+        <input wire:model="cb_suggest" type='checkbox' > He leido y comprobado que he llevado a cabo todas las sugerencias antes de continuar.
           @error("cb_suggest") <br/><span class="error-message">{{ $message }}</span> @enderror
         @endif
 
