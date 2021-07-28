@@ -72,7 +72,7 @@ class CaseController extends Controller
             $q->orWhere('user_rol_id', 2);
         })->get();
         foreach ($supports as $support) {
-            sendPusher($support->id, 'message', 'Se han agregado nuevos casos en espera de asignación.');
+            //sendPusher($support->id, 'message', 'Se han agregado nuevos casos en espera de asignación.');
             sendFcm($support->fcm_token, "Nuevos casos", 'Se han agregado nuevos casos en espera de asignación.', ['case_id' => $case->id]);
         }
         return $case;
