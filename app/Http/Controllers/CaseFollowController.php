@@ -36,7 +36,7 @@ class CaseFollowController extends Controller
                 'created_at' => formatDate($follow->created_at)
             ];
         }
-
+        /*
         $case = Caze::findOrFail($request->case_id);
         if($case->contact['id'] == \Auth::user()->id){
             //support
@@ -50,7 +50,44 @@ class CaseFollowController extends Controller
             sendPusher($case->contact['id'],'updateFollowBox',"X",['case_id' => $case->id]);
             sendFcm($case->contact['fcm_token'],"Nuevo seguimiento", 'Se ha agregado seguimiento al caso '.$case->num_case.' : '.$follow->body,['case_id' => $case->id]);
         }
+        */
 
+        return $json;
+    }
+
+    public function verSeguimientos(Request $request)
+    {
+        $follows = CaseFollow::where('case_id', $request->case_id)->get();
+        $json = [];
+        foreach($follows as $follow)
+        {
+            $json[] = [
+                'image' => getUrl().'/storage/user_images/'.$follow->author['image'],
+                'author' => $follow->author['name']." ".$follow->author['middle_name']." ".$follow->author['last_name'],
+                'body' => $follow->body,
+                'created_at' => formatDate($follow->created_at)
+            ];
+        }
+        return $json;
+    }
+
+    public function guardarSeguimiento(Request $request)
+    {
+        $follow = CaseFollow::create([
+            'case_id' => $request->case_id,
+            'body' => $request->body,
+        ]);
+        $follows = CaseFollow::where('case_id', $request->case_id)->get();
+        $json = [];
+        foreach($follows as $follow)
+        {
+            $json[] = [
+                'image' => getUrl().'/storage/user_images/'.$follow->author['image'],
+                'author' => $follow->author['name']." ".$follow->author['middle_name']." ".$follow->author['last_name'],
+                'body' => $follow->body,
+                'created_at' => formatDate($follow->created_at)
+            ];
+        }
         return $json;
     }
 

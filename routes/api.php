@@ -46,24 +46,9 @@ Route::middleware('auth:api')
 ->name('obtener_areas');
 
 
-
-
-
-
-Route::middleware('auth:api')
-->get('case_index',[\App\Http\Controllers\CaseController::class,'index'])
-->name('case_index');
-
-Route::middleware('auth:api')
-->get('case_create',[\App\Http\Controllers\CaseController::class,'create'])
-->name('case_create');
-
 Route::middleware('auth:api')
 ->post('case_store',[\App\Http\Controllers\CaseController::class,'store'])
 ->name('case_store');
-
-
-
 
 Route::middleware('auth:api')
 ->get('change_area',[\App\Http\Controllers\CaseController::class,'changeArea'])
@@ -80,3 +65,24 @@ Route::middleware('auth:api')
 Route::middleware('auth:api')
 ->get('change_sintoma',[\App\Http\Controllers\CaseController::class,'changeSintoma'])
 ->name('change_sintoma');
+
+Route::middleware('auth:api')
+->get('ver_seguimientos',[\App\Http\Controllers\CaseFollowController::class,'verSeguimientos'])
+->name('ver_seguimientos');
+
+
+Route::middleware('auth:api')
+->post('guardar_seguimiento',[\App\Http\Controllers\CaseFollowController::class,'guardarSeguimiento'])
+->name('guardar_seguimiento');
+
+
+
+/*
+Route::middleware('auth:api')
+->get('case_index',[\App\Http\Controllers\CaseController::class,'index'])
+->name('case_index');
+
+Route::middleware('auth:api')
+->get('case_create',[\App\Http\Controllers\CaseController::class,'create'])
+->name('case_create');
+*/
