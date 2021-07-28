@@ -75,7 +75,9 @@ Route::middleware('auth:api')
 ->post('guardar_seguimiento',[\App\Http\Controllers\CaseFollowController::class,'guardarSeguimiento'])
 ->name('guardar_seguimiento');
 
-
+Route::middleware('auth:api')
+->get('recargar_seguimientos',[\App\Http\Controllers\CaseFollowController::class,'recargarSeguimientos'])
+->name('recargar_seguimientos');
 
 /*
 Route::middleware('auth:api')

@@ -418,6 +418,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
+<audio id="ws_open" preload="auto">
+        <source src="{{ asset('sound/ws_iphone.mp3') }}" type="audio/mp3">
+</audio>
+
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
@@ -442,8 +446,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
     var channel = pusher.subscribe('user-{{ Auth::user()->id }}-channel');
 
+    channel.bind('nuevo_seguimiento', function(data) {
+        recargarSeguimientos(data.message.extra.case_id);
+    });
+
     channel.bind('message', function(data) {
-      console.log(data);
       successNotification(data.message.message);
     });
 

@@ -19,7 +19,8 @@ class UserController extends Controller
                     return 
                     [
                         'error' => 0,
-                        'api_token' => $user->api_token
+                        'api_token' => $user->api_token,
+                        'user_id' => $user->id
                     ];
                 }else{
                     return 

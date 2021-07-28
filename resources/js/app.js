@@ -1,5 +1,5 @@
 require('./bootstrap');
-
+let current_case_id = 0;
 $(() => {
     $("#form_store_case_follow").on('submit', e => {
         e.preventDefault();
@@ -116,8 +116,10 @@ window.updateFollowBox = id => {
     });
 };
 
-window.caseFollow = id => {
 
+
+window.caseFollow = id => {
+    current_case_id = id;
     $("#txt_case_id_follow").val(id);
     $.ajax({
         type: 'GET',
@@ -160,6 +162,44 @@ window.caseFollow = id => {
         error: err => console.log(err)
     });
     $("#case_follow_modal").modal();
+};
+
+window.recargarSeguimientos = pusher_id => {
+    if(current_case_id > 0 && current_case_id == pusher_id) {
+        document.getElementById('ws_open').play();
+        $.ajax({
+            type: 'GET',
+            url: $("#txt_index_case_follow").val() + '/' + pusher_id,
+            data: {},
+            success: data => {
+                $("#CaseFollowBox").html('');
+                let counter = 0;
+                $.each(data, function(index, value) {
+                    counter++;
+                    $("#CaseFollowBox").append(
+                        '<div class="comment-item">' +
+                        '<label class="color-primary-sys font-weight-bold">' +
+                        value.author +
+                        "</label>" +
+                        "<br/>" +
+                        value.body +
+                        "<br/>" +
+                        '<span class="font-weight-bold float-right">' +
+                        value.created_at +
+                        "</span>" +
+                        "<br/>" +
+                        "</div><br/>"
+                    );
+                });
+                setTimeout(() => {
+                    $("#CaseFollowBox").animate({ scrollTop: $(document).height() * 10000 },
+                        500
+                    );
+                }, 500);
+            },
+            error: err => console.log(err)
+        });
+    }
 };
 
 window.takeCase = case_id => {
