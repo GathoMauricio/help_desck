@@ -59,10 +59,13 @@ class CaseController extends Controller
     public function store(Request $request)
     {
         $lastCase = Caze::orderBy('id', 'DESC')->first();
-        $explode = explode('NUM', $lastCase->num_case);
+        if($lastCase)
+        $explode = explode('C-', $lastCase->num_case);
+        else
+        $explode[1] = 3000;
 
         $case = Caze::create([
-            'num_case' => 'NUM' . ($explode[1] + 1),
+            'num_case' => 'C-' . ($explode[1] + 1),
             'symptomp_id' => $request->symptomp_id,
             'priority_case_id' => $request->priority_case_id,
             'description' => $request->description
@@ -72,7 +75,7 @@ class CaseController extends Controller
             $q->orWhere('user_rol_id', 2);
         })->get();
         foreach ($supports as $support) {
-            //sendPusher($support->id, 'message', 'Se han agregado nuevos casos en espera de asignación.');
+            sendPusher($support->id, 'message', 'Se han agregado nuevos casos en espera de asignación.');
             sendFcm($support->fcm_token, "Nuevos casos", 'Se han agregado nuevos casos en espera de asignación.', ['case_id' => $case->id]);
         }
         return $case;
@@ -339,5 +342,26 @@ class CaseController extends Controller
             'areas' => $areas,
             'prioridades' => $prioridades
         ];
+    }
+
+    public function tomarCaso(Request $request)
+    {
+        $caso = Caze::findOrFail($request->case_id);
+        if(is_null($caso->user_support_id)){
+            $caso->user_support_id = \Auth::user()->id;
+            $caso->status_id = 2;
+            $caso->save();
+            $body = $caso->support['name'].' '.$caso->support['middle_name'].' a sido asignado a su caso '.$caso->num_case;
+            sendFcm($caso->contact['fcm_token'],"Caso en progreso", $body,['tipo' => 'caso_asignado','case_id' => $caso->id,'body'=>$body]);
+            return [
+                'error' => 0,
+                'msg' => 'El caso se agregó a su lista en progreso.'
+            ];
+        }else{
+            return [
+                'error' => 1,
+                'msg' => 'Este caso ya ha sido tomado por '.$caso->support['name'].' '.$caso->support['middle_name'].'.'
+            ];
+        }
     }
 }

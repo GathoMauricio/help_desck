@@ -259,10 +259,21 @@ class CaseComponent extends Component
     public function update()
     {
         $auxCase = Caze::find($this->case_id);
+        $soporte_actual = $auxCase->user_support_id;
         if(empty($this->currentCaseSupport))
             $auxCase->user_support_id = null;
         else 
+        {
             $auxCase->user_support_id = $this->currentCaseSupport;
+
+            if($this->currentCaseSupport != $soporte_actual)
+            {
+                $body = $auxCase->support['name'].' '.$auxCase->support['middle_name'].' a sido asignado a su caso '.$auxCase->num_case;
+                sendFcm($auxCase->contact['fcm_token'],"Caso en progreso", $body,['tipo' => 'caso_asignado','case_id' => $auxCase->id,'body'=>$body]);
+            }
+            
+        }
+            
 
         if($auxCase->status_id != $this->currentCaseStatus)
         {
@@ -271,22 +282,24 @@ class CaseComponent extends Component
                     $statusMsg = "Pendiente";
                 break;
                 case 2:
-                    $statusMsg = "En proceso";
+                    $statusMsg = "En progreso";
                 break;
                 case 3:
                     $statusMsg = "Finalizado";
                 break;
             }
+
             //Enviar notificación de cambio de estatus
-            $message = "El estatus del caso ".$auxCase->description. " ha cambiado a: '.$statusMsg";
-            sendPusher($auxCase->contact['id'],'message',$message);
-            $this->emit('successNotification',$message);
+            $body = "El caso ".$auxCase->num_case." ha sido marcado como ".$statusMsg;
+            sendPusher($auxCase->contact['id'],'message',$body);
+            sendFcm($auxCase->contact['fcm_token'],"Caso ".$statusMsg, $body,['tipo' => 'caso_asignado','case_id' => $auxCase->id,'body'=>$body]);
+            $this->emit('successNotification',$body);
         }
 
         $auxCase->status_id = $this->currentCaseStatus;
         $auxCase->feedback = $this->currentCaseFeedback;
         $auxCase->save();
-        $this->emit('successNotification','Información '.$auxCase->user_support_id.' actualizada...');
+        $this->emit('successNotification','Información actualizada...');
     }
 
     public function destroy($id)

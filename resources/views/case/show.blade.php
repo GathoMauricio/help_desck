@@ -21,11 +21,11 @@
         <div class="row">
             <div class="col-md-6">
                 <label class="font-weight-bold">Fecha de creación</label>
-                {{ $currentCase->created_at }}
+                {{ formatDate($currentCase->created_at) }}
             </div>
             <div class="col-md-6">
                 <label class="font-weight-bold">Fecha de modificación</label>
-                {{ $currentCase->updated_at }}
+                {{ formatDate($currentCase->updated_at) }}
             </div>
         </div>
         <hr/>

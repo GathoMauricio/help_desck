@@ -67,9 +67,12 @@ Route::middleware('auth:api')
 ->name('change_sintoma');
 
 Route::middleware('auth:api')
+->put('tomar_caso',[\App\Http\Controllers\CaseController::class,'tomarCaso'])
+->name('tomar_caso');
+
+Route::middleware('auth:api')
 ->get('ver_seguimientos',[\App\Http\Controllers\CaseFollowController::class,'verSeguimientos'])
 ->name('ver_seguimientos');
-
 
 Route::middleware('auth:api')
 ->post('guardar_seguimiento',[\App\Http\Controllers\CaseFollowController::class,'guardarSeguimiento'])
@@ -79,12 +82,4 @@ Route::middleware('auth:api')
 ->get('recargar_seguimientos',[\App\Http\Controllers\CaseFollowController::class,'recargarSeguimientos'])
 ->name('recargar_seguimientos');
 
-/*
-Route::middleware('auth:api')
-->get('case_index',[\App\Http\Controllers\CaseController::class,'index'])
-->name('case_index');
 
-Route::middleware('auth:api')
-->get('case_create',[\App\Http\Controllers\CaseController::class,'create'])
-->name('case_create');
-*/
