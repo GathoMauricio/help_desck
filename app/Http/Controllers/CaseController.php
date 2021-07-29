@@ -62,12 +62,13 @@ class CaseController extends Controller
         if($lastCase)
         {
             $explode = explode('-', $lastCase->num_case);
+            $num_case = 'C-' . ($explode[1] + 1);
         }else{
-            $explode = explode('-','C-3000');
+            $num_case= 'C-3000';
         }
         
         $case = Caze::create([
-            'num_case' => 'C-' . ($explode[1] + 1),
+            'num_case' => $num_case,
             'symptomp_id' => $request->symptomp_id,
             'priority_case_id' => $request->priority_case_id,
             'description' => $request->description
