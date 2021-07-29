@@ -60,10 +60,12 @@ class CaseController extends Controller
     {
         $lastCase = Caze::orderBy('id', 'DESC')->first();
         if($lastCase)
-        $explode = explode('C-', $lastCase->num_case);
-        else
-        $explode[1] = 3000;
-
+        {
+            $explode = explode('C-', $lastCase->num_case);
+        }else{
+            $explode = explode('C-','C-3000');
+        }
+        
         $case = Caze::create([
             'num_case' => 'C-' . ($explode[1] + 1),
             'symptomp_id' => $request->symptomp_id,
