@@ -82,4 +82,14 @@ Route::middleware('auth:api')
 ->get('recargar_seguimientos',[\App\Http\Controllers\CaseFollowController::class,'recargarSeguimientos'])
 ->name('recargar_seguimientos');
 
+Route::middleware('auth:api')
+->get('ver_bitacoras',[\App\Http\Controllers\CaseBinnacleController::class,'verBitacoras'])
+->name('ver_bitacoras');
 
+Route::middleware('auth:api')
+->post('guardar_bitacora',[\App\Http\Controllers\CaseBinnacleController::class,'guardarBitacora'])
+->name('guardar_bitacora');
+
+Route::middleware('auth:api')
+->post('guardar_imagen_bitacora',[\App\Http\Controllers\CaseBinnacleController::class,'guardarImagenBitacora'])
+->name('guardar_imagen_bitacora');
