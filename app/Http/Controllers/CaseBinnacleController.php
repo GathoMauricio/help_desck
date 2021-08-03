@@ -64,7 +64,7 @@ class CaseBinnacleController extends Controller
             $name =  "Binnacle_api[".$binnacle_image->id."_".$binnacle_image->binnacle_id."]_".\Str::random(8)."_".$file->getClientOriginalName();
             $img = \Image::make($file);
             $img = $img->widen(intdiv($img->width() , 4));
-            $img->save('storage/binnacle_imeges/'.$name, 60);
+            $img->save('storage/binnacle_images/'.$name, 60);
             //\Storage::disk('local')->put($name,  \File::get($file));
             $binnacle_image->image = $name;
             $binnacle_image->save();
