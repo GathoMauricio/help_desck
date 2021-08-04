@@ -91,5 +91,9 @@ Route::middleware('auth:api')
 ->name('guardar_bitacora');
 
 Route::middleware('auth:api')
-->post('guardar_imagen_bitacora',[\App\Http\Controllers\CaseBinnacleController::class,'guardarImagenBitacora'])
+->post('guardar_imagen_bitacora',[\App\Http\Controllers\BinnacleImageController::class,'guardarImagenBitacora'])
 ->name('guardar_imagen_bitacora');
+
+Route::middleware('auth:api')
+->get('ver_imagenes_bitacoras',[\App\Http\Controllers\BinnacleImageController::class,'verImagenesBitacoras'])
+->name('ver_imagenes_bitacoras');
