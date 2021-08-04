@@ -367,4 +367,19 @@ class CaseController extends Controller
             ];
         }
     }
+
+    public function verAjustes(Request $request)
+    {
+        $caso = Caze::findOrFail($request->case_id);
+        return $caso;
+    }
+
+    public function actualizarCaso(Request $request)
+    {
+        $caso = Caze::findOrFail($request->id);
+        $caso->status_id = $request->status_id;
+        $caso->feedback = $request->feedback;
+        $caso->save();
+        return "Ajustes actualizados";
+    }
 }

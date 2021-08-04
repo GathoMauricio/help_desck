@@ -97,3 +97,11 @@ Route::middleware('auth:api')
 Route::middleware('auth:api')
 ->get('ver_imagenes_bitacoras',[\App\Http\Controllers\BinnacleImageController::class,'verImagenesBitacoras'])
 ->name('ver_imagenes_bitacoras');
+
+Route::middleware('auth:api')
+->get('ver_ajustes',[\App\Http\Controllers\CaseController::class,'verAjustes'])
+->name('ver_ajustes');
+
+Route::middleware('auth:api')
+->put('actualizar_caso',[\App\Http\Controllers\CaseController::class,'actualizarCaso'])
+->name('actualizar_caso');
