@@ -6,9 +6,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alis Foods|Help Desk</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
+    <title>{{ env('APP_NAME') }}</title>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -177,7 +177,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!--
       <img src="{{ asset('adminlte/img/help_desk_logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       -->
-      <span class="brand-text font-weight-light">&nbsp;</span>
+      <span class="brand-text font-weight-bold">Papa Johns's | Help Desk</span>
     </a>
 
     <!-- Sidebar -->
@@ -215,9 +215,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-                <a href="{{ route('home') }}" class="nav-link active">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
-                  <p>Tablero</p>
+                <a href="{{ asset('app/help_desk.apk') }}" target="_blank" class="nav-link active">
+                  <i class="nav-icon fa fa-mobile"></i>
+                  <p>App</p>
                 </a>
             </li>
             <li class="nav-item menu-close">

@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::get('/', function(){ return view('login'); })->name('/')->middleware('guest');
-Route::get('/home', function(){ return view('home'); })->name('home')->middleware('auth');
+//Route::get('/home', function(){ return view('home'); })->name('home')->middleware('auth');
 
 Route::group(['middleware' => ['auth','admin']],function(){
     Route::get('users',function(){ return view('user.index'); })->name('users');
@@ -18,6 +18,7 @@ Route::group(['middleware' => ['auth','admin']],function(){
 
 
 Route::group(['middleware' => ['auth']],function(){
+    Route::get('/home',function(){ return view('case.index'); })->name('/home');
     Route::get('cases',function(){ return view('case.index'); })->name('cases');
     Route::get('cases_p',function(){ return view('case.index_p'); })->name('cases_p');
     Route::get('cases_e',function(){ return view('case.index_e'); })->name('cases_e');
