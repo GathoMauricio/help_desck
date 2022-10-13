@@ -61,7 +61,7 @@ class CaseComponent extends Component
             if(\Auth::user()->user_rol_id == 1)
             $cases = Caze::orderBy('id','DESC')->paginate(5);
         }
-        
+
         if(!is_null($this->status_case))
         {
             if(\Auth::user()->user_rol_id == 2)
@@ -80,7 +80,7 @@ class CaseComponent extends Component
             $cases = Caze::where('user_contact_id',\Auth::user()->id)->orderBy('id','DESC')->paginate(5);
         }
 
-        
+
 
 
         $areas = ServiceArea::orderBy('name')->get();
@@ -202,7 +202,7 @@ class CaseComponent extends Component
     }
     public function store ()
     {
-        
+
 
         $this->validate([
             'currentArea' => 'required',
@@ -224,12 +224,12 @@ class CaseComponent extends Component
             'cb_suggest.integer' => "Por favor confirme que ha leido las sugerencias",
             'cb_suggest.min' => "Por favor confirme que ha leido las sugerencias",
         ]);
-        
+
         $lastCase = Caze::orderBy('id','DESC')->first();
-        $explode = explode('NUM',$lastCase->num_case);
+        $explode = explode('-',$lastCase->num_case);
 
         $case = Caze::create([
-            'num_case' => 'NUM'.($explode[1] + 1),
+            'num_case' => 'C-'.($explode[1] + 1),
             'symptomp_id' => $this->symptomp_id,
             'priority_case_id' => $this->priority_case_id,
             'description' => $this->description
@@ -262,7 +262,7 @@ class CaseComponent extends Component
         $soporte_actual = $auxCase->user_support_id;
         if(empty($this->currentCaseSupport))
             $auxCase->user_support_id = null;
-        else 
+        else
         {
             $auxCase->user_support_id = $this->currentCaseSupport;
 
@@ -271,9 +271,9 @@ class CaseComponent extends Component
                 $body = $auxCase->support['name'].' '.$auxCase->support['middle_name'].' a sido asignado a su caso '.$auxCase->num_case;
                 sendFcm($auxCase->contact['fcm_token'],"Caso en progreso", $body,['tipo' => 'caso_asignado','case_id' => $auxCase->id,'body'=>$body]);
             }
-            
+
         }
-            
+
 
         if($auxCase->status_id != $this->currentCaseStatus)
         {
@@ -312,7 +312,7 @@ class CaseComponent extends Component
 
     public function changeArea()
     {
-        if(strlen($this->currentArea) <= 0){ 
+        if(strlen($this->currentArea) <= 0){
             $this->currentServiceType = null;
             $this->currentServiceTypeCategory = null;
             $this->symptomp_id = null;
@@ -324,7 +324,7 @@ class CaseComponent extends Component
 
     public function changeType()
     {
-        if(strlen($this->currentArea) <= 0){ 
+        if(strlen($this->currentArea) <= 0){
             $this->currentServiceTypeCategory = null;
             $this->symptomp_id = null;
             $this->categories = null;
@@ -335,7 +335,7 @@ class CaseComponent extends Component
 
     public function changeCategory()
     {
-        if(strlen($this->currentArea) <= 0){ 
+        if(strlen($this->currentArea) <= 0){
             $this->symptomp_id = null;
             $this->simptoms = null;
 
@@ -344,7 +344,7 @@ class CaseComponent extends Component
 
     public function changeSymptom()
     {
-        if(strlen($this->symptomp_id) > 0){ 
+        if(strlen($this->symptomp_id) > 0){
             $this->suggestions = SymptomSuggestion::where('symptom_id', $this->symptomp_id)->get();
         }
     }
@@ -359,5 +359,5 @@ class CaseComponent extends Component
         $this->categories = null;
         $this->simptoms = null;
     }
-   
+
 }
