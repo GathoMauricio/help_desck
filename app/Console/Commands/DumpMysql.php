@@ -42,13 +42,13 @@ class DumpMysql extends Command
         ->setPassword(env('DB_PASSWORD'))
         ->dumpToFile(env('APP_ROUTE','').'storage/dump_db/dump_'.date('Y-m-d').'.sql');
 
-        \Log::info("Base de datos creada...".date('Y-m-d'));
-        
+        //\Log::info("Base de datos creada...".date('Y-m-d'));
+
         $disk = \Storage::disk('gcs');
         $disk->put("DB_help_desk_alis_foods.sql",\File::get(storage_path('dump_db/dump_'.date('Y-m-d').'.sql')));
 
-        \Log::info("Base de datos almacenada...");
-        
+        //\Log::info("Base de datos almacenada...");
+
 
     }
 }
