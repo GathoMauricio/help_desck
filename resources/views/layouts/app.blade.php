@@ -19,7 +19,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/alertify.css') }}" rel="stylesheet">
     <link href="{{ asset('css/semantic.css') }}" rel="stylesheet">
-  @livewireStyles  
+  @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse ">
 <div class="wrapper">
@@ -74,7 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <a href="#" class="dropdown-item">
-            
+
             <div class="media">
               <img src="{{ asset('adminlte/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
@@ -86,11 +86,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-           
+
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            
+
             <div class="media">
               <img src="{{ asset('adminlte/img/user8-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
@@ -102,11 +102,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            
+
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            
+
             <div class="media">
               <img src="{{ asset('adminlte/img/user3-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
@@ -118,14 +118,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            
+
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li>
       -->
-      
+
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
       <!--
@@ -162,7 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fa fa-user"></i><i class="fa fa-caret-down"></i> 
+          <i class="fa fa-user"></i><i class="fa fa-caret-down"></i>
         </a>
       </li>
     </ul>
@@ -428,8 +428,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- Slider Images -->
-<script type="text/javascript"src="https://slideshow.triptracker.net/slide.js"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/js/adminlte.min.js') }}"></script>
 @livewireScripts
@@ -458,7 +456,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       console.log(data);
       updateFollowBox(data.message.extra.case_id);
     });
-    
+
 
 
 </script>
