@@ -285,35 +285,38 @@ Livewire.on('errorNotification', (text) => {
 });
 
 window.viewBinnacleImages = (binnacle_id, count) => {
-    if (count > 0) {
-        const route = $("#txt_view_binnacle_images_route").val();
-        let viewer = new PhotoViewer();
-        viewer.disableEmailLink();
-        viewer.enableLoop();
-        viewer.enableAutoPlay();
-        viewer.setFontSize(16);
-        const show_binnacle_image = $("#txt_show_binnacle_image_route").val();
-        /*
-        viewer.permalink = () => {
-            window.open(show_binnacle_image + '/' + $("#PhotoViewerByline").text());
-        };
-        */
-        $.ajax({
-            type: 'GET',
-            url: route + '/' + binnacle_id,
-            data: {},
-            success: data => {
-                console.log(data);
-                $.each(data, (index, item) => {
-                    viewer.add(item.url, item.description, item.date, '' + item.id);
-                });
-                viewer.show(0);
-            },
-            error: error => console.log(error)
-        });
-
-    } else {
+    if(count > 0){
+        const newwindow = window.open('binnacle_images_index/'+binnacle_id,"Imagenes",'height=800,width=800');
+       if (window.focus) {newwindow.focus()}
+       return false;
+    }else{
         errorNotification("No hay imagenes para mostrar");
     }
+
+    // if (count > 0) {
+    //     const route = $("#txt_view_binnacle_images_route").val();
+    //     let viewer = new PhotoViewer();
+    //     viewer.disableEmailLink();
+    //     viewer.enableLoop();
+    //     viewer.enableAutoPlay();
+    //     viewer.setFontSize(16);
+    //     const show_binnacle_image = $("#txt_show_binnacle_image_route").val();
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: route + '/' + binnacle_id,
+    //         data: {},
+    //         success: data => {
+    //             console.log(data);
+    //             $.each(data, (index, item) => {
+    //                 viewer.add(item.url, item.description, item.date, '' + item.id);
+    //             });
+    //             viewer.show(0);
+    //         },
+    //         error: error => console.log(error)
+    //     });
+
+    // } else {
+    //     errorNotification("No hay imagenes para mostrar");
+    // }
 
 };

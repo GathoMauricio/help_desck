@@ -21,7 +21,8 @@ class BinnacleImageController extends Controller
                 'date' => formatDate($image->created_at)
             ];
         }
-        return $json;
+
+        return view('binnacle_image.index',['images' => $json]);
     }
 
     public function guardarImagenBitacora(Request $request)
@@ -40,7 +41,7 @@ class BinnacleImageController extends Controller
             $binnacle_image->image = $name;
             $binnacle_image->save();
             return "Imagen almacenada";
-        }else{ "Error durante la carga"; } 
+        }else{ "Error durante la carga"; }
     }
 
     public function verImagenesBitacoras(Request $request)

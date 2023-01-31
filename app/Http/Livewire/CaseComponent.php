@@ -41,10 +41,10 @@ class CaseComponent extends Component
 
     #Propiedades para manipular bítácoras
     public
-        $curent_case_id = null,
-        $current_binnacle_id = null,
-        $binnacles = null,
-        $case_binnacle_description = null
+        $curent_case_id,
+        $current_binnacle_id,
+        $binnacles,
+        $case_binnacle_description
         ;
     #propiedades para manipular imagenes de bitácora
     public
@@ -305,9 +305,9 @@ class CaseComponent extends Component
     public function destroy($id)
     {
         $auxCase = Caze::find($id);
-        $name = $auxCase->description;
-        $auxCase->delete();
-        $this->emit('successNotification', 'El caso: ' . $name . ' se eliminó con éxito.');
+        //$name = $auxCase->description;
+        if($auxCase) $auxCase->delete();
+        $this->emit('successNotification', 'El caso se eliminó con éxito.');
     }
 
     public function changeArea()

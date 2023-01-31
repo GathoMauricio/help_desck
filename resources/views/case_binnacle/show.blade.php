@@ -48,7 +48,7 @@
                                 </tr>
                                 @endforeach
                             </body>
-                    </table> 
+                    </table>
                     @else
                     <h3 class="text-center">No hay información para mostrar</h3>
                     @endif

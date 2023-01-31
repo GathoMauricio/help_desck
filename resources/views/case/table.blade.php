@@ -40,7 +40,7 @@
                     </small>
                 </td>
                 <td class="text-center">
-                    
+
                     @if($case->contact['image'] == 'perfil.png')
                     <img src="{{ asset('img/'.$case->contact['image']) }}" class="img-circle elevation-2" alt="User Image" width="60" height="60"/>
                     @else
@@ -50,7 +50,7 @@
                     {{ $case->contact['name'].' '.$case->contact['middle_name'] }}
                 </td>
                 <td class="text-center">
-                    
+
                     @if($case->contact->branch->company['image'] == 'company.png')
                     <img src="{{ asset('img/'.$case->contact->branch->company['image']) }}" class="img-circle elevation-2" alt="User Image" width="60" height="60"/>
                     @else
@@ -91,7 +91,7 @@
                 </td>
                 <td><span wire:click = "show({{ $case->id }})" class="fa fa-eye text-info" style="cursor: pointer;"></span></td>
                 <td><span onclick="caseFollow({{ $case->id }})" class="fa fa-comments text-primary" style="cursor: pointer;">{{ count(\App\Models\CaseFollow::where('case_id',$case->id)->get()) }}</span> </td>
-                <td><span wire:click="showBinnacles({{ $case->id }})" target="_blank" class="fa fa-book" style="color:#8E44AD;cursor: pointer;"></span></td>
+                <td><span wire:click="showBinnacles({{ $case->id }})" class="fa fa-book" style="color:#8E44AD;cursor: pointer;"></span></td>
                 <td>
                 @if(\Auth::user()->user_rol_id == 1)
                 <span onclick="destroy({{ $case->id }});" class="fa fa-trash text-danger" style="cursor: pointer;"></span>
@@ -100,7 +100,7 @@
             </tr>
             @endforeach
         </body>
-</table> 
+</table>
 <p>
     {{$cases->links('pagination-links')}}
 </p>
