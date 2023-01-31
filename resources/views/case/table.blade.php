@@ -6,10 +6,10 @@
     <br/><br/>
     {{$cases->links()}}
 </p>
-<!--
+
 <input type="text" wire:model="search_text" class="form-control"  autocomplete="off"  placeholder="Buscar..."/>
--->
-<table id="example2" class="table table-bordered table-hover dataTable dtr-inline collapsed" role="grid" aria-describedby="example2_info">
+
+<table class="table table-bordered">
         <thead>
             <tr>
                 <th>Núm. de Caso</th>
